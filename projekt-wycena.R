@@ -19,7 +19,7 @@ T <- 2
 model <- function(S_0, u, d, r, K, d_t, T){
   
   k <- T / d_t    # liczba kroków w drzewie, rozmiar macierzy
-  A <- matrix(NA, k, k)
+  A <- matrix(0, k, k)
   A[k, 1] <- 1
   for (i in 2:k){
     for (j in (k - i + 1):k){
@@ -42,7 +42,7 @@ model <- function(S_0, u, d, r, K, d_t, T){
 S_T <- model(S_0, u, d, r, K, d_t, T)
 
 
-wycena<-function(r,T,d,u,Vd,Vu){
+wycena<-function(r,T,d,u,Vu,Vd){
   p <- (exp(r * T) - d) / (u - d)
   return(exp(-r * d_t) * (p *Vu + (1 - p) * Vd))
 }
@@ -52,13 +52,20 @@ wycena<-function(r,T,d,u,Vd,Vu){
 
 calle<-function(u,d,K,T,r,d_t,S_T){
   k <- T / d_t
-  B <- matrix(NA, k, k)    # macierz payoff
+  B <- matrix(0, k, k)    # macierz payoff
   for (i in 1:k){
     B[i, k] <- max(S_T[i, k] - K, 0)    # ostatnia kolumna, czyli payoff dla S_T
   }
-  return(B)
-}
 
+  for (i in (k - 1):1){
+    for (j in (k - i + 1):k){
+      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1])
+    }
+  }
+return(B)
+  }
+
+View(calle(u,d,K,T,r,d_t,S_T))
 
 
 
@@ -68,7 +75,13 @@ pute<-function(u,d,K,T,r,d_t,S_T){
   for (i in 1:k){
     B[i, k] <- max(K-S_T[i, k], 0)    # ostatnia kolumna, czyli payoff dla S_T
   }
+  
+  for (i in (k - 1):1){
+    for (j in (k - i + 1):k){
+      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1])
+    }
+    }
   return(B)
 }
 
-pute(u,d,K,T,r,d_t,S_T)
+View(pute(u,d,K,T,r,d_t,S_T))
