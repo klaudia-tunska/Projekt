@@ -38,6 +38,37 @@ model <- function(S_0, u, d, r, K, d_t, T){
 
 }
 
- 
 
 S_T <- model(S_0, u, d, r, K, d_t, T)
+
+
+wycena<-function(r,T,d,u,Vd,Vu){
+  p <- (exp(r * T) - d) / (u - d)
+  return(exp(-r * d_t) * (p *Vu + (1 - p) * Vd))
+}
+
+
+# opcja dla call@K
+
+calle<-function(u,d,K,T,r,d_t,S_T){
+  k <- T / d_t
+  B <- matrix(NA, k, k)    # macierz payoff
+  for (i in 1:k){
+    B[i, k] <- max(S_T[i, k] - K, 0)    # ostatnia kolumna, czyli payoff dla S_T
+  }
+  return(B)
+}
+
+
+
+
+pute<-function(u,d,K,T,r,d_t,S_T){
+  k <- T / d_t
+  B <- matrix(NA, k, k)    # macierz payoff
+  for (i in 1:k){
+    B[i, k] <- max(K-S_T[i, k], 0)    # ostatnia kolumna, czyli payoff dla S_T
+  }
+  return(B)
+}
+
+pute(u,d,K,T,r,d_t,S_T)
