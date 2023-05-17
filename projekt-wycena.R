@@ -116,7 +116,9 @@ puta<-function(u,d,K,T,r,d_t,S_T){
   
   for (i in (k - 1):1){
     for (j in (k - i + 1):k){
-      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1])
+      a <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1])
+      b<-max(K-S_T[j, i],0)
+    B[j, i]<-max(a,b)
     }
   }
   return(B)
