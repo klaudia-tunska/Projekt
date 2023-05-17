@@ -85,3 +85,41 @@ pute<-function(u,d,K,T,r,d_t,S_T){
 }
 
 View(pute(u,d,K,T,r,d_t,S_T))
+
+
+calla<-function(u,d,K,T,r,d_t,S_T){
+  k <- T / d_t
+  B <- matrix(0, k, k)    # macierz payoff
+  for (i in 1:k){
+    B[i, k] <- max(S_T[i, k] - K, 0)    # ostatnia kolumna, czyli payoff dla S_T
+  }
+  
+  for (i in (k - 1):1){
+    for (j in (k - i + 1):k){
+      a<-wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1])
+      b<-max(S_T[j, i]-K,0)
+      B[j, i] <- max(a,b)
+    }
+  }
+  return(B)
+}
+
+View(calla(u,d,K,T,r,d_t,S_T))
+
+
+puta<-function(u,d,K,T,r,d_t,S_T){
+  k <- T / d_t
+  B <- matrix(NA, k, k)    # macierz payoff
+  for (i in 1:k){
+    B[i, k] <- max(K-S_T[i, k], 0)    # ostatnia kolumna, czyli payoff dla S_T
+  }
+  
+  for (i in (k - 1):1){
+    for (j in (k - i + 1):k){
+      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1])
+    }
+  }
+  return(B)
+}
+
+View(puta(u,d,K,T,r,d_t,S_T))
