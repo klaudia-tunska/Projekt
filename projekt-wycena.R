@@ -19,7 +19,7 @@ T <- 2
 model <- function(S_0, u, d, r, K, d_t, T){
   
   k <- T / d_t    # liczba kroków w drzewie, rozmiar macierzy
-  A <- matrix(0, k, k)
+  A <- matrix(NA, k, k)
   A[k, 1] <- 1
   for (i in 2:k){
     for (j in (k - i + 1):k){
@@ -52,7 +52,7 @@ wycena<-function(r,T,d,u,Vu,Vd){
 
 calle<-function(u,d,K,T,r,d_t,S_T){
   k <- T / d_t
-  B <- matrix(0, k, k)    # macierz payoff
+  B <- matrix(NA, k, k)    # macierz payoff
   for (i in 1:k){
     B[i, k] <- max(S_T[i, k] - K, 0)    # ostatnia kolumna, czyli payoff dla S_T
   }
@@ -89,7 +89,7 @@ View(pute(u,d,K,T,r,d_t,S_T))
 
 calla<-function(u,d,K,T,r,d_t,S_T){
   k <- T / d_t
-  B <- matrix(0, k, k)    # macierz payoff
+  B <- matrix(NA, k, k)    # macierz payoff
   for (i in 1:k){
     B[i, k] <- max(S_T[i, k] - K, 0)    # ostatnia kolumna, czyli payoff dla S_T
   }
@@ -125,3 +125,9 @@ puta<-function(u,d,K,T,r,d_t,S_T){
 }
 
 View(puta(u,d,K,T,r,d_t,S_T))
+
+
+# badanie opłacalności? 
+
+puta(u,d,K,T,r,d_t,S_T)>0
+
