@@ -129,4 +129,5 @@ View(puta(u,d,K,T,r,d_t,S_T))
 
 # badanie opłacalności? 
 
+maksimum<-matrix(NA,k,k)
 
