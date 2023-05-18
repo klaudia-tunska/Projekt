@@ -6,7 +6,7 @@
 
 
 # nasze dane
-d_t <- 1 / 12
+d_t <- 1 / 3
 sigma <- 0.3
 u <- exp(sigma * sqrt(d_t))
 d <- exp(-sigma * sqrt(d_t))
@@ -42,8 +42,8 @@ model <- function(S_0, u, d, r, K, d_t, T){
 S_T <- model(S_0, u, d, r, K, d_t, T)
 
 
-wycena<-function(r,T,d,u,Vu,Vd){
-  p <- (exp(r * T) - d) / (u - d)
+wycena<-function(r,T,d,u,Vu,Vd,d_t){
+  p <- (exp(r * d_t) - d) / (u - d)
   return(exp(-r * d_t) * (p *Vu + (1 - p) * Vd))
 }
 
@@ -59,7 +59,7 @@ calle<-function(u,d,K,T,r,d_t,S_T){
 
   for (i in (k - 1):1){
     for (j in (k - i + 1):k){
-      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1])
+      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1], d_t)
     }
   }
 return(B)
@@ -78,9 +78,27 @@ pute<-function(u,d,K,T,r,d_t,S_T){
   
   for (i in (k - 1):1){
     for (j in (k - i + 1):k){
-      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1])
+      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1], d_t)
     }
+  }
+  return(B)
+}
+
+european_option<-function(u,d,K,T,r,d_t,S_T, type='put'){
+  k <- T / d_t
+  B <- matrix(NA, k, k)    # macierz payoff
+  for (i in 1:k){
+    if(type=='put')
+      B[i, k] <- max(K-S_T[i, k], 0)    # ostatnia kolumna, czyli payoff dla S_T
+    else
+      B[i, k] <- max(S_T[i, k]-K, 0)
+  }
+  
+  for (i in (k - 1):1){
+    for (j in (k - i + 1):k){
+      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1], d_t)
     }
+  }
   return(B)
 }
 
@@ -90,13 +108,15 @@ View(pute(u,d,K,T,r,d_t,S_T))
 calla<-function(u,d,K,T,r,d_t,S_T){
   k <- T / d_t
   B <- matrix(NA, k, k)    # macierz payoff
-  for (i in 1:k){
-    B[i, k] <- max(S_T[i, k] - K, 0)    # ostatnia kolumna, czyli payoff dla S_T
-  }
+  # for (i in 1:k){
+  #  B[, k] <- pmax(S_T[, k]-K, 0) B[i, k] <- max(S_T[i, k] - K, 0)    # ostatnia kolumna, czyli payoff dla S_T
+  # }
+  # 
+  B[, k] <- pmax(S_T[, k]-K, 0)
   
   for (i in (k - 1):1){
     for (j in (k - i + 1):k){
-      a<-wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1])
+      a<-wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1], d_t)
       b<-max(S_T[j, i]-K,0)
       B[j, i] <- max(a,b)
     }
