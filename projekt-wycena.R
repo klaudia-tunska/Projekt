@@ -129,5 +129,4 @@ View(puta(u,d,K,T,r,d_t,S_T))
 
 # badanie opłacalności? 
 
-puta(u,d,K,T,r,d_t,S_T)>0
 
