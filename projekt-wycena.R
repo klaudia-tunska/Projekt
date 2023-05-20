@@ -60,46 +60,40 @@ EU_put <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'put')[T / d_t, 
 EU_call <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t, 1], 2)
 
 
-calla<-function(u,d,K,T,r,d_t,S_T){
-  k <- T / d_t
-  B <- matrix(NA, k, k)    # macierz payoff
-  # for (i in 1:k){
-  #  B[, k] <- pmax(S_T[, k]-K, 0) B[i, k] <- max(S_T[i, k] - K, 0)    # ostatnia kolumna, czyli payoff dla S_T
-  # }
-  # 
-  B[, k] <- pmax(S_T[, k]-K, 0)
+american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
-  for (i in (k - 1):1){
-    for (j in (k - i + 1):k){
-      a<-wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1], d_t)
-      b<-max(S_T[j, i]-K,0)
-      B[j, i] <- max(a,b)
+  N <- T / d_t    # liczba kroków w drzewie, rozmiar macierzy
+  S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
+  B <- matrix(0, N, N)    # macierz payoff
+  B[is.na(S_T)] <- NA
+  if(type == 'put'){
+    B[, N] <- pmax(K - S_T[, N], 0)
+    
+    for (i in (k - 1):1){
+      for (j in (k - i + 1):k){
+        a <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
+        b <- max(K - S_T[j, i], 0)
+        B[j, i] <- max(a, b)
+      }
     }
   }
-  return(B)
-}
-
-View(calla(u,d,K,T,r,d_t,S_T))
-
-
-puta<-function(u,d,K,T,r,d_t,S_T){
-  k <- T / d_t
-  B <- matrix(NA, k, k)    # macierz payoff
-  for (i in 1:k){
-    B[i, k] <- max(K-S_T[i, k], 0)    # ostatnia kolumna, czyli payoff dla S_T
-  }
+  else{
+    B[, N] <- pmax(S_T[, N] - K, 0)
   
-  for (i in (k - 1):1){
-    for (j in (k - i + 1):k){
-      a <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1])
-      b<-max(K-S_T[j, i],0)
-    B[j, i]<-max(a,b)
+    for (i in (k - 1):1){
+      for (j in (k - i + 1):k){
+        a <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
+        b <- max(S_T[j, i] - K, 0)
+        B[j, i] <- max(a, b)
+      }
     }
   }
-  return(B)
-}
+    return(B)
+  }
 
-View(puta(u,d,K,T,r,d_t,S_T))
+
+AM_put <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'put')[T / d_t, 1], 2)    # zadanie 2
+AM_call <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t, 1], 2)
 
 
 # badanie opłacalności? 
