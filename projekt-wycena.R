@@ -62,65 +62,6 @@ EU_put <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'put')[T / d_t, 
 EU_call <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t, 1], 2)
 
 
-
-
-# opcja dla call@K
-
-calle<-function(u,d,K,T,r,d_t,S_T){
-  k <- T / d_t
-  B <- matrix(NA, k, k)    # macierz payoff
-  for (i in 1:k){
-    B[i, k] <- max(S_T[i, k] - K, 0)    # ostatnia kolumna, czyli payoff dla S_T
-  }
-
-  for (i in (k - 1):1){
-    for (j in (k - i + 1):k){
-      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1], d_t)
-    }
-  }
-return(B)
-  }
-
-View(calle(u,d,K,T,r,d_t,S_T))
-
-
-
-pute<-function(u,d,K,T,r,d_t,S_T){
-  k <- T / d_t
-  B <- matrix(NA, k, k)    # macierz payoff
-  for (i in 1:k){
-    B[i, k] <- max(K-S_T[i, k], 0)    # ostatnia kolumna, czyli payoff dla S_T
-  }
-  
-  for (i in (k - 1):1){
-    for (j in (k - i + 1):k){
-      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1], d_t)
-    }
-  }
-  return(B)
-}
-
-european_option<-function(u,d,K,T,r,d_t,S_T, type='put'){
-  k <- T / d_t
-  B <- matrix(NA, k, k)    # macierz payoff
-  for (i in 1:k){
-    if(type=='put')
-      B[i, k] <- max(K-S_T[i, k], 0)    # ostatnia kolumna, czyli payoff dla S_T
-    else
-      B[i, k] <- max(S_T[i, k]-K, 0)
-  }
-  
-  for (i in (k - 1):1){
-    for (j in (k - i + 1):k){
-      B[j, i] <- wycena(r,T,d,u,B[j - 1, i + 1], B[j, i + 1], d_t)
-    }
-  }
-  return(B)
-}
-
-View(pute(u,d,K,T,r,d_t,S_T))
-
-
 calla<-function(u,d,K,T,r,d_t,S_T){
   k <- T / d_t
   B <- matrix(NA, k, k)    # macierz payoff
