@@ -28,7 +28,7 @@ binomial_tree <- function(S_0, u, d_t, T){
   return(S_T)
 }
 
-S_T <- model(S_0, u, d, r, K, d_t, T)
+S_T <- binomial_tree(S_0, u, d_t, T)
 
 wycena <- function(u, d, r, d_t, V_u, V_d){
   
@@ -47,8 +47,8 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   else
     B[, N] <- pmax(S_T[, N] - K, 0)
   
-  for (i in (k - 1):1){
-    for (j in (k - i + 1):k){
+  for (i in (N - 1):1){
+    for (j in (N - i + 1):N){
       B[j, i] <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
     }
   }
@@ -69,8 +69,8 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   if(type == 'put'){
     B[, N] <- pmax(K - S_T[, N], 0)
     
-    for (i in (k - 1):1){
-      for (j in (k - i + 1):k){
+    for (i in (N - 1):1){
+      for (j in (N - i + 1):N){
         a <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
         b <- max(K - S_T[j, i], 0)
         B[j, i] <- max(a, b)
@@ -80,8 +80,8 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   else{
     B[, N] <- pmax(S_T[, N] - K, 0)
   
-    for (i in (k - 1):1){
-      for (j in (k - i + 1):k){
+    for (i in (N - 1):1){
+      for (j in (N - i + 1):N){
         a <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
         b <- max(S_T[j, i] - K, 0)
         B[j, i] <- max(a, b)
@@ -114,8 +114,17 @@ execution_time_call
 
 # Portfel
 
-portfel<-function(M){
-  delta<-(M(w,i)-M(w-1,i))/(S_T(w,i)-S_T(w-1,i))
-  alfa<-exp(-r*d_t)*(M(w,i)-delta*S_T(w,i))
-  return(delta,alfa)
-}
+#portfel<-function(M){
+M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
+N <- T / d_t 
+delta<-matrix(NA, N,N)
+  for (i in (k - 1):1){
+    for (j in (k - i + 1):k){
+      
+  delta<-(M[j,i]-M[j-1,i])/(S_T[j,i]-S_T[j-1,i])
+  }}
+  
+  
+  alfa<-exp(-r*d_t)*(M[w,i]-delta*S_T[w,i])
+#  return(delta,alfa)
+#}
