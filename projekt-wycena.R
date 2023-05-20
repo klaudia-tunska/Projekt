@@ -111,3 +111,11 @@ colnames(execution_time_call) <- c("moment", "czas")
 execution_time_call <- execution_time_call[, 2:1]
 execution_time_call
 
+
+# Portfel
+
+portfel<-function(M){
+  delta<-(M(w,i)-M(w-1,i))/(S_T(w,i)-S_T(w-1,i))
+  alfa<-exp(-r*d_t)*(M(w,i)-delta*S_T(w,i))
+  return(delta,alfa)
+}
