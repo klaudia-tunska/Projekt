@@ -23,7 +23,7 @@ binomial_tree <- function(S_0, u, d, r, K, d_t, T){
   for (i in 1:N){
     A[N:(N - i + 1), i] <- u**(seq(-(i - 1), (i - 1), 2))
   }
-  S_T = S_0 * A
+  S_T <- S_0 * A
   
   return(S_T)
 }
