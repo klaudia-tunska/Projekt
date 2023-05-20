@@ -58,7 +58,8 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   return(B)
 }
 
-EU_call <- european_option(S_0, u, d, r, K, d_t, T, type = 'call')
+EU_put <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'put')[T / d_t, 1], 2)    # zadanie 1
+EU_call <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t, 1], 2)
 
 
 
