@@ -28,14 +28,39 @@ binomial_tree <- function(S_0, u, d_t, T){
   return(S_T)
 }
 
-
 S_T <- model(S_0, u, d, r, K, d_t, T)
 
-
-wycena<-function(r,T,d,u,Vu,Vd,d_t){
+wycena <- function(u, d, r, d_t, V_u, V_d){
+  
   p <- (exp(r * d_t) - d) / (u - d)
-  return(exp(-r * d_t) * (p *Vu + (1 - p) * Vd))
+  return(exp(-r * d_t) * (p * V_u + (1 - p) * V_d))
 }
+
+european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
+  
+  N <- T / d_t    # liczba kroków w drzewie, rozmiar macierzy
+  S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
+  B <- matrix(0, N, N)    # macierz payoff
+  B[is.na(S_T)] <- NA
+  for (i in 1:N){
+    if(type == 'put')
+      B[i, N] <- max(K - S_T[i, N], 0)
+    else
+      B[i, N] <- max(S_T[i, N] - K, 0)
+  }
+  
+  for (i in (k - 1):1){
+    for (j in (k - i + 1):k){
+      B[j, i] <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
+    }
+  }
+  
+  return(B)
+}
+
+EU_call <- european_option(S_0, u, d, r, K, d_t, T, type = 'call')
+
+
 
 
 # opcja dla call@K
