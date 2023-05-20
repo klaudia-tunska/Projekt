@@ -118,10 +118,10 @@ execution_time_call
 M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
 N <- T / d_t 
 delta<-matrix(NA, N,N)
-  for (i in (k - 1):1){
-    for (j in (k - i + 1):k){
+  for (i in (N - 1):1){
+    for (j in (N - i + 1):N){
       
-  delta<-(M[j,i]-M[j-1,i])/(S_T[j,i]-S_T[j-1,i])
+  delta[j,i]<-(M[j,i]-M[j-1,i])/(S_T[j,i]-S_T[j-1,i])
   }}
   
   
