@@ -98,7 +98,15 @@ AM_call <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t
 # Wykonanie opcji europejskiej put wynosi 6.2, natomiast amerykańskiej 6.37 (prawda).
 # Wykonanie opcji europejskiej call wynosi 10, tak samo jak wykonanie takiej opcji amerykańskiej (prawda).
 
-# badanie opłacalności? 
+# Momenty wykonania opcji amerykańskich put
+execution_time_put <-  which(american_option(S_0, u, d, r, K, d_t, T, type = 'put') == K - S_T, arr.ind = TRUE)
+colnames(execution_time_put) <- c("moment", "czas")
+execution_time_put <- execution_time_put[, 2:1]
+execution_time_put
 
-maksimum<-matrix(NA,k,k)
+# Momenty wykonania opcji amerykańskich call
+execution_time_call <-  which(american_option(S_0, u, d, r, K, d_t, T, type = 'call') == S_T - K, arr.ind = TRUE)
+colnames(execution_time_call) <- c("moment", "czas")
+execution_time_call <- execution_time_call[, 2:1]
+execution_time_call
 
