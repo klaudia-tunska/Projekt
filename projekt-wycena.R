@@ -16,7 +16,7 @@ K <- 48
 T <- 2
 
 
-binomial_tree <- function(S_0, u, d, r, K, d_t, T){
+binomial_tree <- function(S_0, u, d_t, T){
   
   N <- T / d_t    # liczba kroków w drzewie, rozmiar macierzy
   A <- matrix(NA, N, N)
