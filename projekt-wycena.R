@@ -42,12 +42,10 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
   B <- matrix(0, N, N)    # macierz payoff
   B[is.na(S_T)] <- NA
-  for (i in 1:N){
-    if(type == 'put')
-      B[i, N] <- max(K - S_T[i, N], 0)
-    else
-      B[i, N] <- max(S_T[i, N] - K, 0)
-  }
+  if(type == 'put')
+    B[, N] <- pmax(K - S_T[, N], 0)
+  else
+    B[, N] <- pmax(S_T[, N] - K, 0)
   
   for (i in (k - 1):1){
     for (j in (k - i + 1):k){
