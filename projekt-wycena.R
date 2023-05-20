@@ -9,7 +9,7 @@
 d_t <- 1 / 3
 sigma <- 0.3
 u <- exp(sigma * sqrt(d_t))
-d <- exp(-sigma * sqrt(d_t))
+d <- exp(-sigma * sqrt(d_t))    # d = 1 / u = u**(-1)
 S_0 <- 50
 r <- 0.02
 K <- 48
