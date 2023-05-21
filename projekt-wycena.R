@@ -15,6 +15,7 @@ r <- 0.02
 K <- 48
 T <- 2
 
+library(pheatmap)
 
 binomial_tree <- function(S_0, u, d_t, T){
   
@@ -98,6 +99,16 @@ AM_call <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t
 # Wykonanie opcji europejskiej put wynosi 6.2, natomiast amerykańskiej 6.37 (prawda).
 # Wykonanie opcji europejskiej call wynosi 10, tak samo jak wykonanie takiej opcji amerykańskiej (prawda).
 
+#Wizualizacja
+
+pa<-american_option(S_0, u, d, r, K, d_t, T, type = 'put')
+pheatmap(pa,Rowv = NA, border_color = "white")
+heatmap(pa,Rowv = NA)
+x<-pa[1:24,]
+y<-seq(1,24,length=length(x))
+plot(y,x)
+
+
 # Zadanie 3
 # Momenty wykonania opcji amerykańskich put
 execution_time_put <-  which(american_option(S_0, u, d, r, K, d_t, T, type = 'put') == K - S_T, arr.ind = TRUE)
@@ -115,7 +126,7 @@ execution_time_call
 # Portfel
 
 #portfel<-function(M){
-M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
+#M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
 N <- T / d_t 
 delta<-matrix(NA, N,N)
 alfa<-matrix(NA, N,N)
