@@ -102,8 +102,8 @@ AM_call <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t
 #Wizualizacja
 
 pa<-american_option(S_0, u, d, r, K, d_t, T, type = 'put')
-pheatmap(pa,Rowv = NA, border_color = "white")
-heatmap(pa,Rowv = NA)
+pheatmap(pa,Rowv = NA, Colv=NA,border_color = "white",show_rownames=TRUE,show_colnames=TRUE)
+heatmap(pa,Rowv = NA,Colv = NA,na.color = "black")
 x<-pa[1:24,]
 y<-seq(1,24,length=length(x))
 plot(y,x)
@@ -121,6 +121,12 @@ execution_time_call <-  which(american_option(S_0, u, d, r, K, d_t, T, type = 'c
 colnames(execution_time_call) <- c("moment", "czas")
 execution_time_call <- execution_time_call[, 2:1]
 execution_time_call
+
+
+moments<-american_option(S_0, u, d, r, K, d_t, T, type = 'put') == K - S_T
+moments[moments==TRUE]<-1
+moments[moments==FALSE]<-0
+heatmap(moments,Rowv = NA,Colv = NA)
 
 
 # Portfel
