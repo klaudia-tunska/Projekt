@@ -136,10 +136,10 @@ heatmap(moments,Rowv = NA,Colv = NA)
 N <- T / d_t 
 delta<-matrix(NA, N,N)
 alfa<-matrix(NA, N,N)
-  for (i in (N - 1):1){
+  for (i in (N):1){
     for (j in (N - i + 1):N){
       
-  delta[j-1,i-1]<-(M[j,i]-M[j-1,i])/(S_T[j,i]-S_T[j-1,i]) #coś chyba tu nie do końca z wymiarem
+  delta[j-1,i-1]<-(M[j,i]-M[j-1,i])/(S_T[j,i]-S_T[j-1,i])
   alfa[j-1,i-1]<-exp(-r*d_t)*(M[j,i]-delta[j-1,i-1]*S_T[j,i])
   
   }}
