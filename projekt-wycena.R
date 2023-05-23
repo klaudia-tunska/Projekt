@@ -129,6 +129,14 @@ moments[moments==FALSE]<-0
 heatmap(moments,Rowv = NA,Colv = NA)
 
 
+# Zadanie 4
+
+# Wrażliwość na zmianę ceny wykonania K
+
+
+# Zadanie 5
+
+
 # Zadanie 6
 
 portfel<-function(M){
