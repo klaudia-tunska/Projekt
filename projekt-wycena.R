@@ -22,13 +22,14 @@ binomial_tree <- function(S_0, u, d_t, T){
   return(S_T)
 }
 
+
 S_T <- binomial_tree(S_0, u, d_t, T)
 
 wycena <- function(u, d, r, d_t, V_u, V_d){
-  
   p <- (exp(r * d_t) - d) / (u - d)
   return(exp(-r * d_t) * (p * V_u + (1 - p) * V_d))
 }
+
 
 european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
@@ -94,12 +95,18 @@ AM_call <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t
 
 #Wizualizacja
 
-pa<-american_option(S_0, u, d, r, K, d_t, T, type = 'put')
+pe<-european_option(S_0, u, d, r, K, d_t, T, type = 'call')
+pa<-american_option(S_0, u, d, r, K, d_t, T, type = 'call')
 pheatmap(pa,Rowv = NA, Colv=NA,border_color = "white",show_rownames=TRUE,show_colnames=TRUE)
-heatmap(pa,Rowv = NA,Colv = NA)
-x<-pa[1:24,]
-y<-seq(1,24,length=length(x))
-plot(y,x)
+library(RColorBrewer)
+
+heatmap(pa,Rowv = NA,Colv = NA, scale="column", xlab="something",
+        ylab="", main="A title",col= colorRampPalette(brewer.pal(8, "Oranges"))(25))
+
+y<-pe[1:24,]
+x<-seq(1,24,length=length(y))
+plot(x,y, ylim=c(0,59))
+lines(1:24,rep(K,time=24), type = "l")
 
 
 # Zadanie 3
@@ -134,6 +141,7 @@ heatmap(moments,Rowv = NA,Colv = NA)
 # Zadanie 5
 
 # Wrażliwość na d_t
+
 
 
 # Zadanie 6
