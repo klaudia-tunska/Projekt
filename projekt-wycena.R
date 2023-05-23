@@ -129,10 +129,9 @@ moments[moments==FALSE]<-0
 heatmap(moments,Rowv = NA,Colv = NA)
 
 
-# Portfel
+# Zadanie 6
 
-#portfel<-function(M){
-#M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
+portfel<-function(M){
 N <- T / d_t 
 delta<-matrix(NA, N,N)
 alfa<-matrix(NA, N,N)
@@ -144,6 +143,11 @@ alfa<-matrix(NA, N,N)
   
   }}
   
-  
-#  return(delta,alfa)
-#}
+  x<-list(delta,alfa)
+  return(x)
+}
+
+M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
+portfel(M)
+
+
