@@ -1,10 +1,3 @@
-# trzymanie drzew w macierzy zaczynamy od dolnego lewego rogu, potem macierz payoff, funkcja pmax po wektorach
-# macierz ceny, macierz payoff, macierz maksimów
-# w europejskiej zerujemy payoffy do ostatniego, bo dopiero na końcu wykonujemy
-# w amerykańskiej nie zerujemy payofffów
-# robimy funkcje payoff dla call i put
-
-
 # nasze dane
 d_t <- 1 / 12
 sigma <- 0.3
@@ -103,7 +96,7 @@ AM_call <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t
 
 pa<-american_option(S_0, u, d, r, K, d_t, T, type = 'put')
 pheatmap(pa,Rowv = NA, Colv=NA,border_color = "white",show_rownames=TRUE,show_colnames=TRUE)
-heatmap(pa,Rowv = NA,Colv = NA,na.color = "black")
+heatmap(pa,Rowv = NA,Colv = NA)
 x<-pa[1:24,]
 y<-seq(1,24,length=length(x))
 plot(y,x)
@@ -133,11 +126,14 @@ heatmap(moments,Rowv = NA,Colv = NA)
 
 # Wrażliwość na zmianę ceny wykonania K
 
-K<-1:100
 
-european_option(S_0, u, d, r, K, d_t, T, type = 'put')
+# Wrażliwość na zmianę zapadalności T
+
+
 
 # Zadanie 5
+
+# Wrażliwość na d_t
 
 
 # Zadanie 6
