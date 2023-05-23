@@ -133,6 +133,9 @@ heatmap(moments,Rowv = NA,Colv = NA)
 
 # Wrażliwość na zmianę ceny wykonania K
 
+K<-1:100
+
+european_option(S_0, u, d, r, K, d_t, T, type = 'put')
 
 # Zadanie 5
 
