@@ -160,7 +160,7 @@ portfel<-function(M){
 N <- T / d_t 
 delta<-matrix(NA, N,N)
 alfa<-matrix(NA, N,N)
-  for (i in (N):1){
+  for (i in (N):1){ # czy nie powinno być do 2 bo gdy i=1 to wpisujemy potem w zerową kolumnę?
     for (j in (N - i + 1):N){
       
   delta[j-1,i-1]<-(M[j,i]-M[j-1,i])/(S_T[j,i]-S_T[j-1,i])
@@ -174,5 +174,5 @@ alfa<-matrix(NA, N,N)
 
 M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
 portfel(M)
-
+#może by zobrazoawać jakoś tą liste na wykresie?
 
