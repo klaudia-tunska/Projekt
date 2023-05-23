@@ -157,4 +157,4 @@ alfa<-matrix(NA, N,N)
 M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
 portfel(M)
 
-
+####testuje github
