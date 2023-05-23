@@ -90,8 +90,8 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
 AM_put <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'put')[T / d_t, 1], 2)    # zadanie 2
 AM_call <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t, 1], 2)
 
-# Wykonanie opcji europejskiej put wynosi 6.2, natomiast amerykańskiej 6.37 (prawda).
-# Wykonanie opcji europejskiej call wynosi 10, tak samo jak wykonanie takiej opcji amerykańskiej (prawda).
+# Cena opcji europejskiej put wynosi 6.2, natomiast amerykańskiej 6.37 (prawda).
+# Cena opcji europejskiej call wynosi 10, tak samo jak wykonanie takiej opcji amerykańskiej (prawda).
 
 #Wizualizacja
 
