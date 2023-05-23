@@ -93,6 +93,16 @@ AM_call <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t
 # Cena opcji europejskiej put wynosi 6.2, natomiast amerykańskiej 6.37 (prawda).
 # Cena opcji europejskiej call wynosi 10, tak samo jak wykonanie takiej opcji amerykańskiej (prawda).
 
+#####
+ec<-european_option(S_0, u, d, r, K, d_t, T, type = 'call')
+ep<-european_option(S_0, u, d, r, K, d_t, T, type = 'put')
+ac<-american_option(S_0, u, d, r, K, d_t, T, type = 'call')
+ap<-american_option(S_0, u, d, r, K, d_t, T, type = 'put')
+View(ec)
+View(ep)
+View(ac)
+View(ap)
+#####
 #Wizualizacja
 
 pe<-european_option(S_0, u, d, r, K, d_t, T, type = 'call')
@@ -127,9 +137,8 @@ execution_time_call
 moments<-american_option(S_0, u, d, r, K, d_t, T, type = 'put') == K - S_T
 moments[moments==TRUE]<-1
 moments[moments==FALSE]<-0
-heatmap(moments,Rowv = NA,Colv = NA)
-
-
+heatmap(moments,Rowv = NA,Colv = NA) #fajnie byłoby jednym kolorem pozaznaczać te miejsca i jakoś obrócić ta mape??
+View(moments)
 # Zadanie 4
 
 # Wrażliwość na zmianę ceny wykonania K
