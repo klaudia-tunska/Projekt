@@ -111,6 +111,7 @@ lines(1:24,rep(K,time=24), type = "l")
 
 # Zadanie 3
 # Momenty wykonania opcji amerykańskich put
+S_T <- binomial_tree(S_0, u, d_t, T)
 execution_time_put <-  which(american_option(S_0, u, d, r, K, d_t, T, type = 'put') == K - S_T, arr.ind = TRUE)
 colnames(execution_time_put) <- c("moment", "czas")
 execution_time_put <- execution_time_put[, 2:1]
