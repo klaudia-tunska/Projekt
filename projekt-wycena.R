@@ -175,4 +175,23 @@ alfa<-matrix(NA, N,N)
 M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
 portfel(M)
 #może by zobrazoawać jakoś tą liste na wykresie?
+########inaczej numeracja w portfelu, bo czy tamta ok była?
+portfel<-function(M){
+  N <- T / d_t 
+  delta<-matrix(NA, N,N)
+  alfa<-matrix(NA, N,N)
+  for (i in 1:(N-1)){
+    for (j in (N - i + 1):N){
+      
+      delta[j,i]<-(M[j-1,i+1]-M[j,i+1])/(S_T[j-1,i+1]-S_T[j,i+1])
+      alfa[j,i]<-exp(-r*d_t)*(M[j-1,i+1]-delta[j,i]*S_T[j-1,i+1])
+      
+    }}
+  
+  x<-list(delta,alfa)
+  return(x)
+}
+
+M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
+portfel(M)
 
