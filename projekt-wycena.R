@@ -30,6 +30,7 @@ wycena <- function(u, d, r, d_t, V_u, V_d){
   return(exp(-r * d_t) * (p * V_u + (1 - p) * V_d))
 }
 
+wycena<-Vectorize(wycena, c("V_u","V_d"))
 
 european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
@@ -113,10 +114,9 @@ library(RColorBrewer)
 heatmap(pa,Rowv = NA,Colv = NA, scale="column", xlab="something",
         ylab="", main="A title",col= colorRampPalette(brewer.pal(8, "Oranges"))(25))
 
-y<-pe[1:24,]
+y<-pa[1:24,]
 x<-seq(1,24,length=length(y))
-plot(x,y, ylim=c(0,59))
-lines(1:24,rep(K,time=24), type = "l")
+plot(x,y, ylim=c(0,59), col=c(9,0,1), type="o")
 
 
 # Zadanie 3
@@ -177,6 +177,10 @@ price
 #  zal_delta_pute[i] <- pute(48,exp(0.3*sqrt(1/przedzial[i])),exp(-0.3*sqrt(1/przedzial[i])),50,0.02,1/przedzial[i],1)[przedzial[i]+1] #test
 #}
 ##########
+
+d_t<-seq(0.01,1,by=0.01)
+european_option(S_0, u, d, r, K, d_t, T, type = 'put')
+european_option<-Vectorize(european_option, "d_t")
 
 # Zadanie 6
 
