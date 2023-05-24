@@ -52,6 +52,8 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   return(B)
 }
 
+european_option<-Vectorize(european_option, c("S_0", "u", "d", "r", "K", "d_t", "T"))
+
 EU_put <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'put')[T/d_t+1, 1], 2)    # zadanie 1
 EU_call <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'call')[T/d_t+1, 1], 2)
 
@@ -178,7 +180,6 @@ price
 #}
 ##########
 
-european_option<-Vectorize(european_option, "d_t")
 d_t<-c(1,1/2,1/3,1/4)
 european_option(S_0, u, d, r, K, d_t, T, type = 'put')
 
