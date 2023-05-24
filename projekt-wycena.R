@@ -146,6 +146,47 @@ View(moments)
 
 
 # Wrażliwość na zmianę zapadalności T
+d_t <- 1 / 12
+sigma <- 0.3
+u <- exp(sigma * sqrt(d_t))
+d <- exp(-sigma * sqrt(d_t))    # d = 1 / u = u**(-1)
+S_0 <- 50
+r <- 0.02
+K <- 48
+T <- 2
+
+#europejcja call
+maturity<-seq(1,50,by=1)
+eu_call_T<-c()
+for (i in 1:length(maturity)){
+  eu_call_T[i]<-(european_option(S_0,u,d, r, K,d_t, maturity[i], type = 'call')[maturity[i]/d_t+1,1])
+}
+#europejcja put
+eu_put_T<-c()
+for (i in 1:length(maturity)){
+  eu_put_T[i]<-(european_option(S_0,u,d, r, K,d_t, maturity[i], type = 'put')[maturity[i]/d_t+1,1])
+}
+
+#amerykańska put
+am_put_T<-c()
+for (i in 1:length(maturity)){
+  am_put_T[i]<-(american_option(S_0,u,d, r, K,d_t, maturity[i], type = 'put')[maturity[i]/d_t+1,1])
+}
+#amerykańska call
+am_call_T<-c()
+for (i in 1:length(maturity)){
+  am_call_T[i]<-(american_option(S_0,u,d, r, K,d_t, maturity[i], type = 'call')[maturity[i]/d_t+1,1])
+}
+length(am_call_T)
+length(maturity)
+plot(maturity,eu_call_T,type="l",col=2,xlab="Zapadalność [w latach]",ylab="Cena opcji",
+     main="Zależność ceny opcji od zapadalności")
+lines(maturity,eu_put_T,type="l",col=3)
+lines(maturity,am_call_T,type="l",col=4)
+lines(maturity,am_put_T,type="l",col=5)
+legend(0,2.75,legend=c("eu call","eu put","am call","am put"),lty=3,pch=18,col=c(2,3,4,5),cex=0.7)
+?legend
+#legenda nie działa?????
 
 
 
