@@ -201,29 +201,17 @@ S_0 <- 50
 r <- 0.02
 K <- 48
 T <- 2
-european_option(S_0, u, d, r, K, d_t, T, type = 'put')
-#Stworze sobie wektor price cen opcji dla różnych d_t typu 1/12,1/13,..,1/365
-vec_d_t<- (seq(12,365,1))^(-1)
-price<-c()
-for (i in 1:length(vec_d_t)){
-  u<-exp(sigma*sqrt(vec_d_t[i]))
-  d<-exp(-sigma*sqrt(vec_d_t[i]))
-price[i]<-(european_option(S_0,u,d, r, K,vec_d_t[i], T, type = 'put')[T/vec_d_t[i]+1,1])
-}
-price
 
-##########
-#przedzial <- seq(12,365,1)
-#zal_delta_pute <- c()
-#for (i in 1:length(przedzial)) {
-#  zal_delta_pute[i] <- pute(48,exp(0.3*sqrt(1/przedzial[i])),exp(-0.3*sqrt(1/przedzial[i])),50,0.02,1/przedzial[i],1)[przedzial[i]+1] #test
-#}
-##########
-european_option<-Vectorize(european_option, c("S_0", "u", "d", "r", "K", "d_t", "T"))
-american_option<-Vectorize(american_option, c("S_0", "u", "d", "r", "K", "d_t", "T"))
+european_option<-Vectorize(european_option,  "d_t")
+american_option<-Vectorize(american_option, "d_t")
+
 d_t<-c(1,1/2,1/3,1/4)
+
 european_option(S_0, u, d, r, K, d_t, T, type = 'put')
+european_option(S_0, u, d, r, K, d_t, T, type = 'call')
 american_option(S_0, u, d, r, K, d_t, T, type = 'put')
+american_option(S_0, u, d, r, K, d_t, T, type = 'call')
+
 
 # Zadanie 6
 
