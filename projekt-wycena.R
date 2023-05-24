@@ -178,9 +178,9 @@ price
 #}
 ##########
 
-d_t<-seq(0.01,1,by=0.01)
-european_option(S_0, u, d, r, K, d_t, T, type = 'put')
 european_option<-Vectorize(european_option, "d_t")
+d_t<-c(1,1/2,1/3,1/4)
+european_option(S_0, u, d, r, K, d_t, T, type = 'put')
 
 # Zadanie 6
 
