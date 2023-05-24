@@ -52,7 +52,6 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   return(B)
 }
 
-european_option<-Vectorize(european_option, c("S_0", "u", "d", "r", "K", "d_t", "T"))
 
 EU_put <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'put')[T/d_t+1, 1], 2)    # zadanie 1
 EU_call <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'call')[T/d_t+1, 1], 2)
@@ -179,9 +178,11 @@ price
 #  zal_delta_pute[i] <- pute(48,exp(0.3*sqrt(1/przedzial[i])),exp(-0.3*sqrt(1/przedzial[i])),50,0.02,1/przedzial[i],1)[przedzial[i]+1] #test
 #}
 ##########
-
+european_option<-Vectorize(european_option, c("S_0", "u", "d", "r", "K", "d_t", "T"))
+american_option<-Vectorize(american_option, c("S_0", "u", "d", "r", "K", "d_t", "T"))
 d_t<-c(1,1/2,1/3,1/4)
 european_option(S_0, u, d, r, K, d_t, T, type = 'put')
+american_option(S_0, u, d, r, K, d_t, T, type = 'put')
 
 # Zadanie 6
 
