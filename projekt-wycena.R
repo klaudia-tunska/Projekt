@@ -52,10 +52,10 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   return(B)
 }
 
-EU_put <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'put')[T / d_t, 1], 2)    # zadanie 1
-EU_call <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t, 1], 2)
+EU_put <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'put')[T/d_t+1, 1], 2)    # zadanie 1
+EU_call <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'call')[T/d_t+1, 1], 2)
 
-
+View(european_option(S_0, u, d, r, K, d_t, T, type = 'put'))
 american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
   N <- T / d_t+1   # liczba kroków w drzewie, rozmiar macierzy
@@ -88,8 +88,8 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   }
 
 
-AM_put <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'put')[T / d_t, 1], 2)    # zadanie 2
-AM_call <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t, 1], 2)
+AM_put <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'put')[T/d_t+1, 1], 2)    # zadanie 2
+AM_call <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'call')[T/d_t+1, 1], 2)
 
 # Cena opcji europejskiej put wynosi 6.2, natomiast amerykańskiej 6.37 (prawda).
 # Cena opcji europejskiej call wynosi 10, tak samo jak wykonanie takiej opcji amerykańskiej (prawda).
@@ -152,8 +152,24 @@ View(moments)
 # Zadanie 5
 
 # Wrażliwość na d_t
-interval <- seq(12,365,1)
+d_t <- 1 / 12
+sigma <- 0.3
+u <- exp(sigma * sqrt(d_t))
+d <- exp(-sigma * sqrt(d_t))    # d = 1 / u = u**(-1)
+S_0 <- 50
+r <- 0.02
+K <- 48
+T <- 2
 
+european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put')
+
+
+interval <- seq(12,365,1)
+przedzial <- seq(12,365,1)
+zal_delta_pute <- c()
+for (i in 1:length(przedzial)) {
+  zal_delta_pute[i] <- pute(48,exp(0.3*sqrt(1/przedzial[i])),exp(-0.3*sqrt(1/przedzial[i])),50,0.02,1/przedzial[i],1)[przedzial[i]+1] #test
+}
 
 
 # Zadanie 6
