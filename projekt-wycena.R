@@ -12,7 +12,7 @@ library(pheatmap)
 
 binomial_tree <- function(S_0, u, d_t, T){
   
-  N <- T / d_t    # liczba kroków w drzewie, rozmiar macierzy
+  N <- T / d_t +1  # liczba kroków w drzewie, rozmiar macierzy(dodajemy 1 gdyż R nie liczy od 0)
   A <- matrix(NA, N, N)
   for (i in 1:N){
     A[N:(N - i + 1), i] <- u**(seq(-(i - 1), (i - 1), 2))
@@ -24,6 +24,7 @@ binomial_tree <- function(S_0, u, d_t, T){
 
 
 S_T <- binomial_tree(S_0, u, d_t, T)
+View(S_T)
 
 wycena <- function(u, d, r, d_t, V_u, V_d){
   p <- (exp(r * d_t) - d) / (u - d)
@@ -33,7 +34,7 @@ wycena <- function(u, d, r, d_t, V_u, V_d){
 
 european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
-  N <- T / d_t    # liczba kroków w drzewie, rozmiar macierzy
+  N <- T / d_t+1    # liczba kroków w drzewie, rozmiar macierzy
   S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
   B <- matrix(0, N, N)    # macierz payoff
   B[is.na(S_T)] <- NA
@@ -57,7 +58,7 @@ EU_call <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'call')[T / d_t
 
 american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
-  N <- T / d_t    # liczba kroków w drzewie, rozmiar macierzy
+  N <- T / d_t+1   # liczba kroków w drzewie, rozmiar macierzy
   S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
   B <- matrix(0, N, N)    # macierz payoff
   B[is.na(S_T)] <- NA
@@ -151,6 +152,7 @@ View(moments)
 # Zadanie 5
 
 # Wrażliwość na d_t
+interval <- seq(12,365,1)
 
 
 
