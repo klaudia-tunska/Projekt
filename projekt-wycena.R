@@ -9,20 +9,30 @@ K <- 48
 T <- 2
 
 library(pheatmap)
-
+#stary binomial_tree
+#binomial_tree <- function(S_0, u, d_t, T){
+#  
+#  N <- T / d_t +1  # liczba kroków w drzewie, rozmiar macierzy(dodajemy 1 gdyż R nie liczy od 0)
+#  A <- matrix(NA, N, N)
+#  for (i in 1:N){
+#    A[N:(N - i + 1), i] <- u**(seq(-(i - 1), (i - 1), 2))
+#  }
+#  S_T <- S_0 * A
+#  
+#  return(S_T)
+#}
 binomial_tree <- function(S_0, u, d_t, T){
   
   N <- T / d_t +1  # liczba kroków w drzewie, rozmiar macierzy(dodajemy 1 gdyż R nie liczy od 0)
   A <- matrix(NA, N, N)
-  for (i in 1:N){
+  A[N,1]<-1
+  for (i in 2:N){
     A[N:(N - i + 1), i] <- u**(seq(-(i - 1), (i - 1), 2))
   }
   S_T <- S_0 * A
   
   return(S_T)
 }
-
-
 S_T <- binomial_tree(S_0, u, d_t, T)
 View(S_T)
 
@@ -160,17 +170,24 @@ S_0 <- 50
 r <- 0.02
 K <- 48
 T <- 2
+european_option(S_0, u, d, r, K, d_t, T, type = 'put')
 
-european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put')
-
-
-interval <- seq(12,365,1)
-przedzial <- seq(12,365,1)
-zal_delta_pute <- c()
-for (i in 1:length(przedzial)) {
-  zal_delta_pute[i] <- pute(48,exp(0.3*sqrt(1/przedzial[i])),exp(-0.3*sqrt(1/przedzial[i])),50,0.02,1/przedzial[i],1)[przedzial[i]+1] #test
+vec_d_t<- (seq(12,365,1))^(-1)
+price<-c()
+for (i in 1:length(vec_d_t)){
+  u<-exp(sigma*sqrt(vec_d_t[i]))
+  d<-exp(-sigma*sqrt(vec_d_t[i]))
+price[i]<-european_option(S_0,u,d, r, K,vec_d_t[i], T, type = 'put')[T/vec_d_t[i]+1,1]
 }
+price
 
+##########
+#przedzial <- seq(12,365,1)
+#zal_delta_pute <- c()
+#for (i in 1:length(przedzial)) {
+#  zal_delta_pute[i] <- pute(48,exp(0.3*sqrt(1/przedzial[i])),exp(-0.3*sqrt(1/przedzial[i])),50,0.02,1/przedzial[i],1)[przedzial[i]+1] #test
+#}
+##########
 
 # Zadanie 6
 
