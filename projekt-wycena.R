@@ -205,12 +205,12 @@ T <- 2
 european_option<-Vectorize(european_option,  "d_t")
 american_option<-Vectorize(american_option, "d_t")
 
-d_t<-c(1,1/2,1/3,1/4)
-
-european_option(S_0, u, d, r, K, d_t, T, type = 'put')
+a<-1:4
+d_t<-1/a
+european_option(S_0, u, d, r, K, d_t, T, type = 'put')[[4]][9,1] #cena 4 macierzy
 european_option(S_0, u, d, r, K, d_t, T, type = 'call')
 american_option(S_0, u, d, r, K, d_t, T, type = 'put')
-american_option(S_0, u, d, r, K, d_t, T, type = 'call')
+am<-american_option(S_0, u, d, r, K, d_t, T, type = 'call')
 
 
 # Zadanie 6
