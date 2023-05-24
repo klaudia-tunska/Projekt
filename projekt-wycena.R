@@ -166,7 +166,7 @@ price<-c()
 for (i in 1:length(vec_d_t)){
   u<-exp(sigma*sqrt(vec_d_t[i]))
   d<-exp(-sigma*sqrt(vec_d_t[i]))
-price[i]<-european_option(S_0,u,d, r, K,vec_d_t[i], T, type = 'put')[T/vec_d_t[i]+1,1]
+price[i]<-(european_option(S_0,u,d, r, K,vec_d_t[i], T, type = 'put')[T/vec_d_t[i]+1,1])
 }
 price
 
