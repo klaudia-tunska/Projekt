@@ -9,30 +9,19 @@ K <- 48
 T <- 2
 
 library(pheatmap)
-#stary binomial_tree
-#binomial_tree <- function(S_0, u, d_t, T){
-#  
-#  N <- T / d_t +1  # liczba kroków w drzewie, rozmiar macierzy(dodajemy 1 gdyż R nie liczy od 0)
-#  A <- matrix(NA, N, N)
-#  for (i in 1:N){
-#    A[N:(N - i + 1), i] <- u**(seq(-(i - 1), (i - 1), 2))
-#  }
-#  S_T <- S_0 * A
-#  
-#  return(S_T)
-#}
+
 binomial_tree <- function(S_0, u, d_t, T){
   
   N <- T / d_t +1  # liczba kroków w drzewie, rozmiar macierzy(dodajemy 1 gdyż R nie liczy od 0)
   A <- matrix(NA, N, N)
-  A[N,1]<-1
-  for (i in 2:N){
+  for (i in 1:N){
     A[N:(N - i + 1), i] <- u**(seq(-(i - 1), (i - 1), 2))
   }
   S_T <- S_0 * A
   
   return(S_T)
 }
+
 S_T <- binomial_tree(S_0, u, d_t, T)
 View(S_T)
 
