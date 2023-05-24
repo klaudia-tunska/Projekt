@@ -160,7 +160,7 @@ r <- 0.02
 K <- 48
 T <- 2
 european_option(S_0, u, d, r, K, d_t, T, type = 'put')
-
+#Stworze sobie wektor price cen opcji dla różnych d_t typu 1/12,1/13,..,1/365
 vec_d_t<- (seq(12,365,1))^(-1)
 price<-c()
 for (i in 1:length(vec_d_t)){
