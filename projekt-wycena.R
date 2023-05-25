@@ -142,6 +142,7 @@ moments[moments==TRUE]<-1
 moments[moments==FALSE]<-0
 heatmap(moments,Rowv = NA,Colv = NA) #fajnie byłoby jednym kolorem pozaznaczać te miejsca i jakoś obrócić ta mape??
 View(moments)
+
 # Zadanie 4
 
 # Wrażliwość na zmianę ceny wykonania K
