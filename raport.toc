@@ -1,0 +1,7 @@
+\contentsline {chapter}{\numberline {1\relax .\enspace }Wstęp}{2}{}%
+\contentsline {chapter}{\numberline {2\relax .\enspace }Wycena opcji}{3}{}%
+\contentsline {chapter}{\numberline {3\relax .\enspace }Analiza wrażliwości}{4}{}%
+\contentsline {section}{\numberline {3.1\relax .\enspace }Cena wykonania, K}{4}{}%
+\contentsline {section}{\numberline {3.2\relax .\enspace }Zapadalność, T}{4}{}%
+\contentsline {section}{\numberline {3.3\relax .\enspace }Liczba kroków, $\Delta $t.}{4}{}%
+\contentsline {chapter}{\numberline {4\relax .\enspace }Portfel replikujący}{5}{}%
