@@ -26,6 +26,14 @@ binomial_tree <- function(S_0, u, d_t, T){
 S_T <- binomial_tree(S_0, u, d_t, T)
 #View(S_T)
 
+y<-S_T[,1:25]
+x<-seq(1,25,length=length(y))
+color<-c()
+color[which(S_T>K)]<-"red"
+color[which(S_T<K)]<-"blue"
+plot(x,y, ylim=c(0,400),col=color, scale="log")
+
+
 wycena <- function(u, d, r, d_t, V_u, V_d){
   p <- (exp(r * d_t) - d) / (u - d)
   return(exp(-r * d_t) * (p * V_u + (1 - p) * V_d))
@@ -117,8 +125,8 @@ library(RColorBrewer)
 heatmap(pa,Rowv = NA,Colv = NA, scale="column", xlab="something",
         ylab="", main="A title",col= colorRampPalette(brewer.pal(8, "Oranges"))(25))
 
-y<-pa[1:24,]
-x<-seq(1,24,length=length(y))
+y<-pa[1:25,]
+x<-seq(1,25,length=length(y))
 plot(x,y, ylim=c(0,59), col=c(9,0,1), type="o")
 
 
@@ -341,8 +349,14 @@ lines(a,ceny_ce)
 
 # Zadanie 6
 
-T<-2
-d_t<-1/12
+d_t <- 1 / 12
+sigma <- 0.3
+u <- exp(sigma * sqrt(d_t))
+d <- exp(-sigma * sqrt(d_t))    # d = 1 / u = u**(-1)
+S_0 <- 50
+r <- 0.02
+K <- 48
+T <- 2
 
 portfel<-function(M, S_T){
 N <- T / d_t + 1
@@ -358,5 +372,10 @@ alfa<-matrix(NA, N,N)
   return(x)
 }
 
-M<-american_option(S_0,u,d,r,K,d_t,T,type="call")
-portfel(M, S_T)
+S_T <- binomial_tree(S_0, u, d_t, T)
+
+pe<-european_option(S_0,u,d,r,K,d_t,T,type="put")
+ce<-european_option(S_0,u,d,r,K,d_t,T,type="call")
+pa<-american_option(S_0,u,d,r,K,d_t,T,type="put")
+ca<-american_option(S_0,u,d,r,K,d_t,T,type="call")
+portfel(pa, S_T)
