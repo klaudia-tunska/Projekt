@@ -1,3 +1,5 @@
+library(pheatmap)
+
 # nasze dane
 d_t <- 1 / 12
 sigma <- 0.3
@@ -8,7 +10,6 @@ r <- 0.02
 K <- 48
 T <- 2
 
-library(pheatmap)
 
 binomial_tree <- function(S_0, u, d_t, T){
   
@@ -23,7 +24,7 @@ binomial_tree <- function(S_0, u, d_t, T){
 }
 
 S_T <- binomial_tree(S_0, u, d_t, T)
-View(S_T)
+#View(S_T)
 
 wycena <- function(u, d, r, d_t, V_u, V_d){
   p <- (exp(r * d_t) - d) / (u - d)
@@ -145,6 +146,61 @@ View(moments)
 
 # Wrażliwość na zmianę ceny wykonania K
 
+#gdzieś wcześniej są modyfikacje do funkcji, więc wczyrujemy jeszcze raz "czystą" funkcję 
+european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
+  
+  N <- T / d_t+1    # liczba kroków w drzewie, rozmiar macierzy
+  S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
+  B <- matrix(0, N, N)    # macierz payoff
+  B[is.na(S_T)] <- NA
+  if(type == 'put')
+    B[, N] <- pmax(K - S_T[, N], 0)
+  else
+    B[, N] <- pmax(S_T[, N] - K, 0)
+  
+  for (i in (N - 1):1){
+    for (j in (N - i + 1):N){
+      B[j, i] <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
+    }
+  }
+  
+  return(B)
+} 
+american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
+  
+  N <- T / d_t+1   # liczba kroków w drzewie, rozmiar macierzy
+  S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
+  B <- matrix(0, N, N)    # macierz payoff
+  B[is.na(S_T)] <- NA
+  if(type == 'put'){
+    B[, N] <- pmax(K - S_T[, N], 0)
+    
+    for (i in (N - 1):1){
+      for (j in (N - i + 1):N){
+        a <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
+        b <- max(K - S_T[j, i], 0)
+        B[j, i] <- max(a, b)
+      }
+    }
+  }
+  else{
+    B[, N] <- pmax(S_T[, N] - K, 0)
+    
+    for (i in (N - 1):1){
+      for (j in (N - i + 1):N){
+        a <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
+        b <- max(S_T[j, i] - K, 0)
+        B[j, i] <- max(a, b)
+      }
+    }
+  }
+  return(B)
+}
+
+european_option_K<-Vectorize(european_option,"K")
+american_option_K<-Vectorize(american_option, "K")
+
+
 
 # Wrażliwość na zmianę zapadalności T
 d_t <- 1 / 12
@@ -203,7 +259,7 @@ r <- 0.02
 K <- 48
 T <- 2
 
-
+#gdzieś wcześniej są modyfikacje do funkcji, więc wczyrujemy jeszcze raz "czystą" funkcję 
 european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
   N <- T / d_t+1    # liczba kroków w drzewie, rozmiar macierzy
@@ -222,8 +278,7 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   }
   
   return(B)
-}
-
+} 
 american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
   N <- T / d_t+1   # liczba kroków w drzewie, rozmiar macierzy
@@ -267,14 +322,21 @@ ceny_ca<-c()
 
 
 for (i in 1:length(d_t)){
-#ceny_pe[i]<-european_option_dt(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
-ceny_ce[i]<-european_option(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
-#ceny_pa[i]<-american_option_dt(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
-#ceny_ca<-american_option_dt(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
+ceny_pe[i]<-european_option_dt(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
+ceny_ce[i]<-european_option_dt(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
+ceny_pa[i]<-american_option_dt(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
+ceny_ca[i]<-american_option_dt(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
 }
 
-plot(a,ceny_pe)
+ceny_pe
+ceny_ce
+ceny_pa
+ceny_ca
+
+plot(a,ceny_pe, ylim=c(0,9)) # to trzeba jakoś ładniej
 lines(a,ceny_pa)
+lines(a,ceny_ca)
+lines(a,ceny_ce)
 
 # Zadanie 6
 
