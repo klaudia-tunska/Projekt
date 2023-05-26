@@ -415,9 +415,8 @@ T <- 2
 european_option_dt<-Vectorize(european_option,  c("u","d","d_t"))
 american_option_dt<-Vectorize(american_option, c("u","d","d_t"))
 
-a<-1:10
 T<-1
-d_t<-1/a
+d_t<-seq(0.01,1, by=0.04)
 u <- exp(sigma * sqrt(d_t))
 d <- exp(-sigma * sqrt(d_t))
 
