@@ -118,14 +118,6 @@ View(ep)
 View(ac)
 View(ap)
 #####
-#Wizualizacja
-
-pe<-european_option(S_0, u, d, r, K, d_t, T, type = 'call')
-pa<-american_option(S_0, u, d, r, K, d_t, T, type = 'call')
-
-y<-pa[1:25,]
-x<-seq(1,25,length=length(y))
-plot(x,y, ylim=c(0,59), col=c(9,0,1), type="o")
 
 
 # Zadanie 3
