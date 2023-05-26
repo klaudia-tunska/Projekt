@@ -1,4 +1,7 @@
-# nasze dane
+# Konstruujemy drzewo niezależnie od ścieżki (PATH-INDEPENDENT) jako macierz, 
+# gdzie t-ta kolumna to S_t moment wykonania akcji
+
+# Dane
 d_t <- 1 / 12
 sigma <- 0.3
 u <- exp(sigma * sqrt(d_t))
@@ -7,6 +10,12 @@ S_0 <- 50
 r <- 0.02
 K <- 48
 T <- 2
+
+matrix_size <- function(d_t, T){    # rozmiar macierzy kwadratowej N, gdzie uwzględniamy moment S_0
+  return(T / d_t + 1)
+}
+
+N <- matrix_size(d_t, T)
 
 
 binomial_tree <- function(S_0, u, d_t, T){
