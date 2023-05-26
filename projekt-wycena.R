@@ -65,7 +65,7 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
 EU_put <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'put')[T/d_t+1, 1], 2)    # zadanie 1
 EU_call <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'call')[T/d_t+1, 1], 2)
 
-View(european_option(S_0, u, d, r, K, d_t, T, type = 'put'))
+#View(european_option(S_0, u, d, r, K, d_t, T, type = 'put'))
 
 american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
@@ -154,9 +154,15 @@ View(moments)
 # Zadanie 4
 
 # Wrażliwość na zmianę ceny wykonania K
-
+d_t <- 1 / 12
+sigma <- 0.3
+u <- exp(sigma * sqrt(d_t))
+d <- exp(-sigma * sqrt(d_t))    # d = 1 / u = u**(-1)
+S_0 <- 50
+r <- 0.02
+T <- 2
 #gdzieś wcześniej są modyfikacje do funkcji, więc wczyrujemy jeszcze raz "czystą" funkcję 
-european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
+european_option <- function(S_0, u, d, r, K, d_t, T, type){
   
   N <- T / d_t+1    # liczba kroków w drzewie, rozmiar macierzy
   S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
@@ -175,7 +181,7 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
   return(B)
 } 
-american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
+american_option <- function(S_0, u, d, r, K, d_t, T, type){
   
   N <- T / d_t+1   # liczba kroków w drzewie, rozmiar macierzy
   S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
@@ -208,6 +214,31 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
 
 european_option_K<-Vectorize(european_option,"K")
 american_option_K<-Vectorize(american_option, "K")
+
+
+K<-20:100
+ceny_pe<-c()
+ceny_ce<-c()
+ceny_pa<-c()
+ceny_ca<-c()
+
+
+for (i in 1:length(d_t)){
+  ceny_pe[i]<-european_option_dt(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
+  ceny_ce[i]<-european_option_dt(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
+  ceny_pa[i]<-american_option_dt(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
+  ceny_ca[i]<-american_option_dt(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -269,7 +300,7 @@ K <- 48
 T <- 2
 
 #gdzieś wcześniej są modyfikacje do funkcji, więc wczyrujemy jeszcze raz "czystą" funkcję 
-european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
+european_option <- function(S_0, u, d, r, K, d_t, T, type){
   
   N <- T / d_t+1    # liczba kroków w drzewie, rozmiar macierzy
   S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
@@ -288,7 +319,7 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   
   return(B)
 } 
-american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
+american_option <- function(S_0, u, d, r, K, d_t, T, type){
   
   N <- T / d_t+1   # liczba kroków w drzewie, rozmiar macierzy
   S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
@@ -322,10 +353,12 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
 european_option_dt<-Vectorize(european_option,  "d_t")
 american_option_dt<-Vectorize(american_option, "d_t")
 
-a<-1:4
+a<-1:24
+T<-1
 d_t<-1/a
 ceny_pe<-c()
 ceny_ce<-c()
+
 ceny_pa<-c()
 ceny_ca<-c()
 
@@ -342,7 +375,8 @@ ceny_ce
 ceny_pa
 ceny_ca
 
-plot(a,ceny_pe, ylim=c(0,9)) # to trzeba jakoś ładniej
+#plot(a,ceny_pe, ylim=c(0,9)) # to trzeba jakoś ładniej
+plot(a,ceny_pe,ylim=c(0,20))
 lines(a,ceny_pa)
 lines(a,ceny_ca)
 lines(a,ceny_ce)
