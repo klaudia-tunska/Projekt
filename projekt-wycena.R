@@ -40,12 +40,10 @@ plot(x, y, log = "y", type = "p", col = colors, pch = 16, xlab = "Moments", ylab
 legend("topleft", legend = c("S_T > K", "S_T < K"), col = c("#DEA435", "#40DE8E"), pch = 16, cex = 1.1, bty = "n")
 
 wycena <- function(u, d, r, d_t, V_u, V_d){
-  wycena_before_vectorize <- function(u, d, r, d_t, V_u, V_d){
-    p <- (exp(r * d_t) - d) / (u - d)
-    return(exp(-r * d_t) * (p * V_u + (1 - p) * V_d))
+  p <- (exp(r * d_t) - d) / (u - d)
+  return(exp(-r * d_t) * (p * V_u + (1 - p) * V_d))
   }
-  return(Vectorize(wycena_before_vectorize, c("V_u","V_d")))
-}
+wycena<-Vectorize(wycena, c("V_u","V_d"))
 
 european_option <- function(S_0, u, d, r, K, d_t, T, type = "put"){
   
