@@ -378,7 +378,7 @@ T <- 2
 european_option_r<-Vectorize(european_option,"r")
 american_option_r<-Vectorize(american_option,"r")
 
-r<-0.01
+r<-seq(0.01,0.2,by=0.01)
 
 ceny_pe<-c()
 ceny_ce<-c()
@@ -476,4 +476,8 @@ pe<-european_option(S_0,u,d,r,K,d_t,T,type="put")
 ce<-european_option(S_0,u,d,r,K,d_t,T,type="call")
 pa<-american_option(S_0,u,d,r,K,d_t,T,type="put")
 ca<-american_option(S_0,u,d,r,K,d_t,T,type="call")
+
+portfel(pe, S_T)
+portfel(ce, S_T)
 portfel(pa, S_T)
+portfel(ca, S_T)
