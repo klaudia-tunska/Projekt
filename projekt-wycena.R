@@ -390,7 +390,7 @@ T <- 2
 european_option_r<-Vectorize(european_option,"r")
 american_option_r<-Vectorize(american_option,"r")
 
-r<-seq(0.01,0.2,by=0.01)
+r<-seq(0,1,by=0.05)
 
 ceny_pe<-c()
 ceny_ce<-c()
