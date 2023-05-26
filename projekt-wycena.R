@@ -236,6 +236,13 @@ ceny_pa
 ceny_ca
 
 
+plot(K,ceny_pe,col="green", ylab = "Wartość", xlab = "K", main="Zależność ceny opcji od , K")
+lines(K,ceny_ce, col="blue", type="p")
+lines(K,ceny_pa,col="black")
+lines(K,ceny_ca, col="red")
+legend("topleft", c("Europejska put","Europejska call","Amerykańska put",
+                    "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","black","red"))
+
 
 
 
@@ -255,7 +262,7 @@ european_option_T<-Vectorize(european_option,"T")
 american_option_T<-Vectorize(american_option, "T")
 
 
-T<-1:5
+T<-seq(1,100,by=1)
 ceny_pe<-c()
 ceny_ce<-c()
 ceny_pa<-c()
@@ -276,6 +283,13 @@ ceny_ce
 ceny_pa
 ceny_ca
 
+
+plot(T,ceny_pe,col="green",ylim=c(0,20), ylab = "Wartość", xlab = "Zapadalnoś T", main="Zależność ceny opcji od zapadalności, T")
+lines(T,ceny_ce, col="blue", type="p")
+lines(T,ceny_pa,col="black")
+lines(T,ceny_ca, col="red")
+legend("topleft", c("Europejska put","Europejska call","Amerykańska put",
+                    "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","black","red"))
 
 
 plot(maturity,eu_call_T,type="l",col=2,xlab="Zapadalność [w latach]",ylab="Cena opcji",
@@ -324,6 +338,14 @@ ceny_ce
 ceny_pa
 ceny_ca
 
+plot(S_0,ceny_pe,col="green",ylim=c(0,20), ylab = "Wartość",
+     xlab = "Wartość S0", main="Zależność ceny opcji od S0")
+lines(S_0,ceny_ce, col="blue", type="p")
+lines(S_0,ceny_pa,col="black")
+lines(S_0,ceny_ca, col="red")
+legend("topleft", c("Europejska put","Europejska call","Amerykańska put",
+                    "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","black","red"))
+
 
 
 # Wrażliwość na zmianę sigma
@@ -340,7 +362,7 @@ T <- 2
 european_option_sigma<-Vectorize(european_option,c("u","d"))
 american_option_sigma<-Vectorize(american_option,c("u","d"))
 
-sigma<-seq(0.1,0.4,by=0.1)
+sigma<-seq(0.05,0.5,by=0.05)
 u <- exp(sigma * sqrt(d_t))
 d <- exp(-sigma * sqrt(d_t))
 
@@ -362,6 +384,16 @@ ceny_pe
 ceny_ce
 ceny_pa
 ceny_ca
+
+
+plot(sigma,ceny_pe,col="green",ylim=c(0,20), ylab = "Wartość",
+     xlab = "Wartość sigmy", main="Zależność od sigmy")
+lines(sigma,ceny_ce, col="blue", type="p")
+lines(sigma,ceny_pa,col="black")
+lines(sigma,ceny_ca, col="red")
+legend("topleft", c("Europejska put","Europejska call","Amerykańska put",
+                    "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","black","red"))
+
 
 
 # Wrażliwość na zmianę r
@@ -398,6 +430,15 @@ ceny_pe
 ceny_ce
 ceny_pa
 ceny_ca
+
+
+plot(r,ceny_pe,col="green",ylim=c(0,20), ylab = "Wartość", xlab = "Wartość r", main="Zależność od r")
+lines(r,ceny_ce, col="blue", type="p")
+lines(r,ceny_pa,col="black")
+lines(r,ceny_ca, col="red")
+legend("topleft", c("Europejska put","Europejska call","Amerykańska put",
+                        "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","black","red"))
+
 
 # Zadanie 5
 
@@ -438,12 +479,12 @@ ceny_ce
 ceny_pa
 ceny_ca
 
-plot(d_t,ceny_pe,col="green",ylim=c(0,10), ylab = "Wartość", xlab = "Krok", main="Zależność od d_t")
+plot(d_t,ceny_pe,col="green",ylim=c(0,10), ylab = "Wartość", xlab = "Krok", main="Zależność ceny opcji od d_t")
 lines(d_t,ceny_ce, col="blue", type="p")
 lines(d_t,ceny_pa,col="red")
 lines(d_t,ceny_ca, col="magenta")
 legend("bottomright", c("Europejska put","Europejska call","Amerykańska put",
-                        "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","red","magenta"),title= "Typ opcji")
+                        "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","red","magenta"))
 
 
 # Zadanie 6
