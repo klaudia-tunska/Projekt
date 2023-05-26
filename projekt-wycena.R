@@ -31,7 +31,7 @@ x<-seq(1,25,length=length(y))
 color<-c()
 color[which(S_T>K)]<-"red"
 color[which(S_T<K)]<-"blue"
-plot(x,y, ylim=c(0,400),col=color, scale="log")
+plot(x,y, ylim=c(0,400),col=color, scale="log")# ta oś X żeby była od 0-2 jako czas w latach
 
 
 wycena <- function(u, d, r, d_t, V_u, V_d){
