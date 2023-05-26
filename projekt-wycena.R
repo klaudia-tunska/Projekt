@@ -22,9 +22,9 @@ binomial_tree <- function(S_0, u, d_t, T){
   N <- matrix_size(d_t, T)    # liczba kroków w drzewie, rozmiar macierzy
   A <- matrix(NA, nrow = N, ncol = N)
   
-  sapply(1:N, function(i) {
+  for (i in 1:N){
     A[N:(N - i + 1), i] <- u**(seq(-(i - 1), (i - 1), 2))
-  })
+  }
   
   return(S_0 * A)
 }
@@ -538,14 +538,25 @@ alfa_ca<-portfel_ca[[2]][1:25,]
 x<-seq(1,25,length=625)
 
 par(mfrow = c(1, 2))    
-plot(x,delta_pe, col=11,pch=19)
-plot(x,alfa_pe,col=12,pch=19)
+plot(x,delta_pe, col=11,pch=19, main = "Wartości delty dla europejskiej opcji put",
+     ylab = "Wartość delty", xlab = "Krok")
+plot(x,alfa_pe,col=12,pch=19, main = "Wartości alfy dla europejskiej opcji put",
+     ylab = "Wartość alfy", xlab = "Krok")
 
-plot(x,delta_ce,col=11,pch=19)
-plot(x,alfa_ce,col=12,pch=19)
+par(mfrow = c(1, 2))    
+plot(x,delta_ce,col=11,pch=19, main = "Wartości delty dla europejskiej opcji call",
+     ylab = "Wartość delty", xlab = "Krok")
+plot(x,alfa_ce,col=12,pch=19, main = "Wartości alfy dla europejskiej opcji call",
+     ylab = "Wartość alfy", xlab = "Krok")
 
-plot(x,delta_pa,col=11,pch=19)
-plot(x,alfa_pa,col=12,pch=19)
+par(mfrow = c(1, 2))    
+plot(x,delta_pa,col=11,pch=19, main = "Wartości delty dla amerykańskiej opcji put",
+     ylab = "Wartość delty",  xlab = "Krok")
+plot(x,alfa_pa,col=12,pch=19, main = "Wartości alfy dla amerykańskiej opcji put",
+     ylab = "Wartość alfy", xlab = "Krok")
 
-plot(x,delta_ca,col=11,pch=19)
-plot(x,alfa_ca,col=12,pch=19)
+par(mfrow = c(1, 2))    
+plot(x,delta_ca,col=11,pch=19, main = "Wartości delty dla amerykańskiej opcji call",
+     ylab = "Wartość delty", xlab = "Krok")
+plot(x,alfa_ca,col=12,pch=19, main = "Wartości alfy dla amerykańskiej opcji call",
+     ylab = "Wartość alfy", xlab = "Krok")
