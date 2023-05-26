@@ -215,19 +215,17 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type){
 european_option_K<-Vectorize(european_option,"K")
 american_option_K<-Vectorize(american_option, "K")
 
-
-K<-20:100
+K<-40:50
 ceny_pe<-c()
 ceny_ce<-c()
 ceny_pa<-c()
 ceny_ca<-c()
 
-
 for (i in 1:length(K)){
-  ceny_pe[i]<-european_option_K(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
-  ceny_ce[i]<-european_option_K(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
-  ceny_pa[i]<-american_option_K(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
-  ceny_ca[i]<-american_option_K(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
+  ceny_pe[i]<-european_option_K(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
+  ceny_ce[i]<-european_option_K(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
+  ceny_pa[i]<-american_option_K(S_0, u, d, r, K, d_t, T, type = 'put')[25,i]
+  ceny_ca[i]<-american_option_K(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
 }
 
 
@@ -236,9 +234,6 @@ ceny_pe
 ceny_ce
 ceny_pa
 ceny_ca
-
-
-
 
 
 
