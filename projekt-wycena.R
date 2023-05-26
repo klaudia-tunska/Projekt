@@ -51,11 +51,8 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
     B[, N] <- pmax(S_T[, N] - K, 0)
   
   for (i in (N - 1):1){
-    for (j in (N - i + 1):N){
-      B[j, i] <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
-    }
-  }
-  
+    B[(N - i + 1):N, i] <- wycena(u, d, r, d_t, B[(N - i):(N - 1), i + 1], B[(N - i + 1):N, i + 1])
+  } 
   return(B)
 }
 
