@@ -413,7 +413,7 @@ ceny_pa
 ceny_ca
 
 
-plot(r,ceny_pe,col="green",ylim=c(0,20), ylab = "Wartość", xlab = "Wartość r", main="Zależność od r")
+plot(r,ceny_pe,col="green",ylim=c(0,20), ylab = "Wartość", xlab = "Wartość r", main="Zależność ceny od r")
 lines(r,ceny_ce, col="blue", type="p")
 lines(r,ceny_pa,col="black")
 lines(r,ceny_ca, col="red")
