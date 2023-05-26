@@ -223,11 +223,11 @@ ceny_pa<-c()
 ceny_ca<-c()
 
 
-for (i in 1:length(d_t)){
-  ceny_pe[i]<-european_option_dt(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
-  ceny_ce[i]<-european_option_dt(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
-  ceny_pa[i]<-american_option_dt(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
-  ceny_ca[i]<-american_option_dt(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
+for (i in 1:length(K)){
+  ceny_pe[i]<-european_option_K(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
+  ceny_ce[i]<-european_option_K(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
+  ceny_pa[i]<-american_option_K(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
+  ceny_ca[i]<-american_option_K(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
 }
 
 
