@@ -1,7 +1,4 @@
-# Konstruujemy drzewo niezależnie od ścieżki (PATH-INDEPENDENT) jako macierz, 
-# gdzie t-ta kolumna to S_t moment wykonania akcji
-
-# Dane
+# nasze dane
 d_t <- 1 / 12
 sigma <- 0.3
 u <- exp(sigma * sqrt(d_t))
@@ -10,12 +7,6 @@ S_0 <- 50
 r <- 0.02
 K <- 48
 T <- 2
-
-matrix_size <- function(d_t, T){    # rozmiar macierzy kwadratowej N, gdzie uwzględniamy moment S_0
-  return(T / d_t + 1)
-}
-
-N <- matrix_size(d_t, T)
 
 
 binomial_tree <- function(S_0, u, d_t, T){
@@ -60,8 +51,11 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
     B[, N] <- pmax(S_T[, N] - K, 0)
   
   for (i in (N - 1):1){
-    B[(N - i + 1):N, i] <- wycena(u, d, r, d_t, B[(N - i):(N - 1), i + 1], B[(N - i + 1):N, i + 1])
-  } 
+    for (j in (N - i + 1):N){
+      B[j, i] <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
+    }
+  }
+  
   return(B)
 }
 
@@ -535,5 +529,15 @@ alfa_ca<-portfel_ca[[2]][1:25,]
 
 x<-seq(1,25,length=625)
 
-plot(x,delta_pe)
-plot(x,alfa_pe)
+par(mfrow = c(1, 2))    
+plot(x,delta_pe, col=11,pch=19)
+plot(x,alfa_pe,col=12,pch=19)
+
+plot(x,delta_ce,col=11,pch=19)
+plot(x,alfa_ce,col=12,pch=19)
+
+plot(x,delta_pa,col=11,pch=19)
+plot(x,alfa_pa,col=12,pch=19)
+
+plot(x,delta_ca,col=11,pch=19)
+plot(x,alfa_ca,col=12,pch=19)
