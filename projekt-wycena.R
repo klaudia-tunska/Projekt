@@ -415,7 +415,7 @@ T <- 2
 european_option_dt<-Vectorize(european_option,  c("u","d","d_t"))
 american_option_dt<-Vectorize(american_option, c("u","d","d_t"))
 
-a<-1:24
+a<-1:10
 T<-1
 d_t<-1/a
 u <- exp(sigma * sqrt(d_t))
@@ -439,11 +439,12 @@ ceny_ce
 ceny_pa
 ceny_ca
 
-plot(a,ceny_pe,ylim=c(0,20),col="green", ylab = "Wartość", xlab = "Krok")
-lines(a,ceny_ce, col="blue", type="p")
-lines(a,ceny_pa,col="red")
-lines(a,ceny_ca, col="magenta")
-legend("topright", c("","","",""), pch=1, col=c("green","blue","red","magenta"),title= "Typ opcji")
+plot(d_t,ceny_pe,col="green",ylim=c(0,10), ylab = "Wartość", xlab = "Krok", main="Zależność od d_t")
+lines(d_t,ceny_ce, col="blue", type="p")
+lines(d_t,ceny_pa,col="red")
+lines(d_t,ceny_ca, col="magenta")
+legend("bottomright", c("Europejska put","Europejska call","Amerykańska put",
+                        "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","red","magenta"),title= "Typ opcji")
 
 
 # Zadanie 6
