@@ -32,13 +32,12 @@ binomial_tree <- function(S_0, u, d_t, T){
 S_T <- binomial_tree(S_0, u, d_t, T)
 #View(S_T)
 
-y<-S_T[,1:25]
-x<-seq(1,25,length=length(y))
-color<-c()
-color[which(S_T>K)]<-"red"
-color[which(S_T<K)]<-"blue"
-plot(x,y, ylim=c(0,400),col=color)# ta oś X żeby była od 0-2 jako czas w latach
-
+# Path-independent tree
+y <- S_T[, 1:25]
+x <- seq(1, 25, length = length(y))
+colors <- ifelse(S_T > K, "#DEA435", "#40DE8E")
+plot(x, y, log = "y", type = "p", col = colors, pch = 16, xlab = "Moments", ylab = "", main = "Path-independent tree", yaxt = "n")
+legend("topleft", legend = c("S_T > K", "S_T < K"), col = c("#DEA435", "#40DE8E"), pch = 16, cex = 1.1, bty = "n")
 
 wycena <- function(u, d, r, d_t, V_u, V_d){
   p <- (exp(r * d_t) - d) / (u - d)
