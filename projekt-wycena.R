@@ -252,7 +252,7 @@ european_option_T<-Vectorize(european_option,"T")
 american_option_T<-Vectorize(american_option, "T")
 
 
-T<-seq(1,100,by=1)
+T<-seq(0,40,by=1)
 ceny_pe<-c()
 ceny_ce<-c()
 ceny_pa<-c()
@@ -412,7 +412,7 @@ ceny_pa
 ceny_ca
 
 
-plot(r,ceny_pe,col="green",ylim=c(0,20), ylab = "Wartość", xlab = "Wartość r", main="Zależność ceny od r")
+plot(r,ceny_pe,col="green",ylim=c(0,50), ylab = "Cena", xlab = "Wartość r", main="Zależność ceny od r")
 lines(r,ceny_ce, col="blue", type="p")
 lines(r,ceny_pa,col="black")
 lines(r,ceny_ca, col="red")
