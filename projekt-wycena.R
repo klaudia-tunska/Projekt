@@ -205,7 +205,7 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type){
 european_option_K<-Vectorize(european_option,"K")
 american_option_K<-Vectorize(american_option, "K")
 
-K<-0:100
+K<-40:70
 ceny_pe<-c()
 ceny_ce<-c()
 ceny_pa<-c()
