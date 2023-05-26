@@ -275,7 +275,7 @@ ceny_pa
 ceny_ca
 
 
-plot(T,ceny_pe,col="green",ylim=c(0,20), ylab = "Wartość", xlab = "Zapadalnoś T", main="Zależność ceny opcji od zapadalności, T")
+plot(T,ceny_pe,col="green",ylim=c(0,20), ylab = "Cena", xlab = "Zapadalnoś T", main="Zależność ceny opcji od zapadalności, T")
 lines(T,ceny_ce, col="blue", type="p")
 lines(T,ceny_pa,col="black")
 lines(T,ceny_ca, col="red")
@@ -319,8 +319,8 @@ ceny_ce
 ceny_pa
 ceny_ca
 
-plot(S_0,ceny_pe,col="green",ylim=c(0,20), ylab = "Wartość",
-     xlab = "Wartość S0", main="Zależność ceny opcji od S0")
+plot(S_0,ceny_pe,col="green",ylim=c(0,20), ylab = "Cena",
+     xlab = "Wartość ceny spot", main="Zależność ceny opcji od ceny spot")
 lines(S_0,ceny_ce, col="blue", type="p")
 lines(S_0,ceny_pa,col="black")
 lines(S_0,ceny_ca, col="red")
