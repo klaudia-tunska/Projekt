@@ -1,5 +1,3 @@
-library(pheatmap)
-
 # nasze dane
 d_t <- 1 / 12
 sigma <- 0.3
@@ -119,11 +117,6 @@ View(ap)
 
 pe<-european_option(S_0, u, d, r, K, d_t, T, type = 'call')
 pa<-american_option(S_0, u, d, r, K, d_t, T, type = 'call')
-pheatmap(pa,Rowv = NA, Colv=NA,border_color = "white",show_rownames=TRUE,show_colnames=TRUE)
-library(RColorBrewer)
-
-heatmap(pa,Rowv = NA,Colv = NA, scale="column", xlab="something",
-        ylab="", main="A title",col= colorRampPalette(brewer.pal(8, "Oranges"))(25))
 
 y<-pa[1:25,]
 x<-seq(1,25,length=length(y))
@@ -236,7 +229,7 @@ ceny_pa
 ceny_ca
 
 
-plot(K,ceny_pe,col="green", ylab = "Wartość", xlab = "K", main="Zależność ceny opcji od , K")
+plot(K,ceny_pe,col="green", ylim=c(0,100) ,ylab = "Wartość", xlab = "K", main="Zależność ceny opcji od , K")
 lines(K,ceny_ce, col="blue", type="p")
 lines(K,ceny_pa,col="black")
 lines(K,ceny_ca, col="red")
@@ -492,7 +485,7 @@ legend("bottomright", c("Europejska put","Europejska call","Amerykańska put",
 d_t <- 1 / 12
 sigma <- 0.3
 u <- exp(sigma * sqrt(d_t))
-d <- exp(-sigma * sqrt(d_t))    # d = 1 / u = u**(-1)
+d <- exp(-sigma * sqrt(d_t))
 S_0 <- 50
 r <- 0.02
 K <- 48
@@ -519,7 +512,22 @@ ce<-european_option(S_0,u,d,r,K,d_t,T,type="call")
 pa<-american_option(S_0,u,d,r,K,d_t,T,type="put")
 ca<-american_option(S_0,u,d,r,K,d_t,T,type="call")
 
-portfel(pe, S_T)
-portfel(ce, S_T)
-portfel(pa, S_T)
-portfel(ca, S_T)
+portfel_pe<-portfel(pe, S_T)
+portfel_ce<-portfel(ce, S_T)
+portfel_pa<-portfel(pa, S_T)
+portfel_ca<-portfel(ca, S_T)
+
+delta_pe<-portfel_pe[[1]][1:25,]
+delta_ce<-portfel_ce[[1]][1:25,]
+delta_pa<-portfel_pa[[1]][1:25,]
+delta_ca<-portfel_ca[[1]][1:25,]
+
+alfa_pe<-portfel_pe[[2]][1:25,]
+alfa_ce<-portfel_ce[[2]][1:25,]
+alfa_pa<-portfel_pa[[2]][1:25,]
+alfa_ca<-portfel_ca[[2]][1:25,]
+
+x<-seq(1,25,length=625)
+
+plot(x,delta_pe)
+plot(x,alfa_pe)
