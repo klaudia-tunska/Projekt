@@ -232,7 +232,10 @@ for (i in 1:length(K)){
 
 
 
-
+ceny_pe
+ceny_ce
+ceny_pa
+ceny_ca
 
 
 
