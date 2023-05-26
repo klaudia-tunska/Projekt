@@ -439,11 +439,12 @@ ceny_ce
 ceny_pa
 ceny_ca
 
-#plot(a,ceny_pe, ylim=c(0,9)) # to trzeba jakoś ładniej
-plot(a,ceny_pe,ylim=c(0,20))
-lines(a,ceny_pa)
-lines(a,ceny_ca)
-lines(a,ceny_ce)
+plot(a,ceny_pe,ylim=c(0,20),col="green", ylab = "Wartość", xlab = "Krok")
+lines(a,ceny_ce, col="blue", type="p")
+lines(a,ceny_pa,col="red")
+lines(a,ceny_ca, col="magenta")
+legend("topright", c("","","",""), pch=1, col=c("green","blue","red","magenta"),title= "Typ opcji")
+
 
 # Zadanie 6
 
