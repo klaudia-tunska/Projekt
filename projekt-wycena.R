@@ -255,6 +255,34 @@ r <- 0.02
 K <- 48
 T <- 2
 
+
+european_option_T<-Vectorize(european_option,"T")
+american_option_T<-Vectorize(american_option, "T")
+
+
+T<-1:10
+ceny_pe<-c()
+ceny_ce<-c()
+ceny_pa<-c()
+ceny_ca<-c()
+
+
+for (i in 1:length(T)){
+  ceny_pe[i]<-european_option_T(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
+  ceny_ce[i]<-european_option_T(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
+  ceny_pa[i]<-american_option_T(S_0, u, d, r, K, d_t, T, type = 'put')[[i]][T/d_t[i]+1,1]
+  ceny_ca[i]<-american_option_T(S_0, u, d, r, K, d_t, T, type = 'call')[[i]][T/d_t[i]+1,1]
+}
+
+
+
+ceny_pe
+ceny_ce
+ceny_pa
+ceny_ca
+
+
+
 #europejcja call
 maturity<-seq(1,50,by=1)
 eu_call_T<-c()
