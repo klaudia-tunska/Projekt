@@ -162,7 +162,7 @@ d <- exp(-sigma * sqrt(d_t))    # d = 1 / u = u**(-1)
 S_0 <- 50
 r <- 0.02
 T <- 2
-#gdzieś wcześniej są modyfikacje do funkcji, więc wczyrujemy jeszcze raz "czystą" funkcję 
+
 european_option <- function(S_0, u, d, r, K, d_t, T, type){
   
   N <- T / d_t+1    # liczba kroków w drzewie, rozmiar macierzy
@@ -216,7 +216,7 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type){
 european_option_K<-Vectorize(european_option,"K")
 american_option_K<-Vectorize(american_option, "K")
 
-K<-40:50
+K<-0:100
 ceny_pe<-c()
 ceny_ce<-c()
 ceny_pa<-c()
@@ -237,7 +237,8 @@ ceny_pa
 ceny_ca
 
 
-plot(K,ceny_pe,col="green", ylim=c(0,100) ,ylab = "Wartość", xlab = "K", main="Zależność ceny opcji od , K")
+plot(K,ceny_pe,col="green", ylim=c(0,100) ,ylab = "Cena", xlab = "Krok",
+     main="Zależność ceny opcji od ceny wykonania, K")
 lines(K,ceny_ce, col="blue", type="p")
 lines(K,ceny_pa,col="black")
 lines(K,ceny_ca, col="red")
@@ -291,16 +292,6 @@ lines(T,ceny_pa,col="black")
 lines(T,ceny_ca, col="red")
 legend("topleft", c("Europejska put","Europejska call","Amerykańska put",
                     "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","black","red"))
-
-
-plot(maturity,eu_call_T,type="l",col=2,xlab="Zapadalność [w latach]",ylab="Cena opcji",
-     main="Zależność ceny opcji od zapadalności")
-lines(maturity,eu_put_T,type="l",col=3)
-lines(maturity,am_call_T,type="l",col=4)
-lines(maturity,am_put_T,type="l",col=5)
-legend(0,2.75,legend=c("eu call","eu put","am call","am put"),lty=3,pch=18,col=c(2,3,4,5),cex=0.7)
-?legend
-#legenda nie działa?????
 
 
 
