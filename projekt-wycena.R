@@ -47,23 +47,20 @@ wycena <- function(u, d, r, d_t, V_u, V_d){
 
 wycena<-Vectorize(wycena, c("V_u","V_d"))
 
-european_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
+european_option <- function(S_0, u, d, r, K, d_t, T, type = "put"){
   
-  N <- T / d_t+1    # liczba kroków w drzewie, rozmiar macierzy
-  S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
-  B <- matrix(0, N, N)    # macierz payoff
+  N <- matrix_size(d_t, T)    # liczba kroków w drzewie, rozmiar macierzy
+  S_T <- binomial_tree(S_0, u, d_t, T)
+  B <- matrix(NA, nrow = N, ncol = N)    # macierz payoff
   B[is.na(S_T)] <- NA
-  if(type == 'put')
-    B[, N] <- pmax(K - S_T[, N], 0)
-  else
-    B[, N] <- pmax(S_T[, N] - K, 0)
-  
+  ifelse(type == "put",
+         B[, N] <- pmax(K - S_T[, N], 0),    # opcja put
+         B[, N] <- pmax(S_T[, N] - K, 0))    # opcja call
+
   for (i in (N - 1):1){
-    for (j in (N - i + 1):N){
-      B[j, i] <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
-    }
+    B[(N - i + 1):N, i] <- wycena(u, d, r, d_t, B[(N - i):(N - 1), i + 1], B[(N - i + 1):N, i + 1])
   }
-  
+
   return(B)
 }
 
