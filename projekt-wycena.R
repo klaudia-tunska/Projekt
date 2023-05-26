@@ -51,7 +51,7 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = "put"){
   
   N <- matrix_size(d_t, T)    # liczba kroków w drzewie, rozmiar macierzy
   S_T <- binomial_tree(S_0, u, d_t, T)
-  B <- matrix(NA, nrow = N, ncol = N)    # macierz payoff
+  B <- matrix(0, nrow = N, ncol = N)    # macierz payoff
   B[is.na(S_T)] <- NA
   ifelse(type == "put",
          B[, N] <- pmax(K - S_T[, N], 0),    # opcja put
