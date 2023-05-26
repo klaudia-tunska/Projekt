@@ -19,14 +19,14 @@ N <- matrix_size(d_t, T)
 
 binomial_tree <- function(S_0, u, d_t, T){
   
-  N <- T / d_t +1  # liczba kroków w drzewie, rozmiar macierzy(dodajemy 1 gdyż R nie liczy od 0)
-  A <- matrix(NA, N, N)
+  N <- matrix_size(d_t, T)    # liczba kroków w drzewie, rozmiar macierzy
+  A <- matrix(NA, nrow = N, ncol = N)
+  
   for (i in 1:N){
     A[N:(N - i + 1), i] <- u**(seq(-(i - 1), (i - 1), 2))
   }
-  S_T <- S_0 * A
   
-  return(S_T)
+  return(S_0 * A)
 }
 
 S_T <- binomial_tree(S_0, u, d_t, T)
