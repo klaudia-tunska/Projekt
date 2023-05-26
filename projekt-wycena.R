@@ -212,7 +212,7 @@ ceny_pa<-c()
 ceny_ca<-c()
 
 for (i in 1:length(K)){
-  ceny_pe[i]<-european_option_K(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
+  ceny_pe[i]<-european_option_K(S_0, u, d, r, K, d_t, T, type = 'put')[25,i]
   ceny_ce[i]<-european_option_K(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
   ceny_pa[i]<-american_option_K(S_0, u, d, r, K, d_t, T, type = 'put')[25,i]
   ceny_ca[i]<-american_option_K(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
@@ -226,7 +226,7 @@ ceny_pa
 ceny_ca
 
 
-plot(K,ceny_pe,col="green", ylim=c(0,100) ,ylab = "Cena", xlab = "Cena spot",
+plot(K,ceny_pe,col="green", ylim=c(0,50) ,ylab = "Cena", xlab = "Cena spot",
      main="Zależność ceny opcji od ceny wykonania, K")
 lines(K,ceny_ce, col="blue", pch=4, type = "p")
 lines(K,ceny_pa,col="black")
