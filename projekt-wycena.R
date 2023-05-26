@@ -289,6 +289,116 @@ legend(0,2.75,legend=c("eu call","eu put","am call","am put"),lty=3,pch=18,col=c
 
 
 
+# Wrażliwość na zmianę S_0
+d_t <- 1 / 12
+sigma <- 0.3
+u <- exp(sigma * sqrt(d_t))
+d <- exp(-sigma * sqrt(d_t))
+S_0 <- 50
+r <- 0.02
+K <- 48
+T <- 2
+
+
+european_option_S0<-Vectorize(european_option,"S_0")
+american_option_S0<-Vectorize(american_option, "S_0")
+
+
+S_0<-40:60
+ceny_pe<-c()
+ceny_ce<-c()
+ceny_pa<-c()
+ceny_ca<-c()
+
+
+for (i in 1:length(S_0)){
+  ceny_pe[i]<-european_option_S0(S_0, u, d, r, K, d_t, T, type = 'put')[25,i]
+  ceny_ce[i]<-european_option_S0(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
+  ceny_pa[i]<-american_option_S0(S_0, u, d, r, K, d_t, T, type = 'put')[25,i]
+  ceny_ca[i]<-american_option_S0(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
+}
+
+
+ceny_pe
+ceny_ce
+ceny_pa
+ceny_ca
+
+
+
+# Wrażliwość na zmianę sigma
+d_t <- 1 / 12
+sigma <- 0.3
+u <- exp(sigma * sqrt(d_t))
+d <- exp(-sigma * sqrt(d_t))
+S_0 <- 50
+r <- 0.02
+K <- 48
+T <- 2
+
+
+european_option_sigma<-Vectorize(european_option,c("u","d"))
+american_option_sigma<-Vectorize(american_option,c("u","d"))
+
+sigma<-seq(0.1,0.4,by=0.1)
+u <- exp(sigma * sqrt(d_t))
+d <- exp(-sigma * sqrt(d_t))
+
+ceny_pe<-c()
+ceny_ce<-c()
+ceny_pa<-c()
+ceny_ca<-c()
+
+
+for (i in 1:length(sigma)){
+  ceny_pe[i]<-european_option_sigma(S_0, u, d, r, K, d_t, T, type = 'put')[25,i]
+  ceny_ce[i]<-european_option_sigma(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
+  ceny_pa[i]<-american_option_sigma(S_0, u, d, r, K, d_t, T, type = 'put')[25,i]
+  ceny_ca[i]<-american_option_sigma(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
+}
+
+
+ceny_pe
+ceny_ce
+ceny_pa
+ceny_ca
+
+
+# Wrażliwość na zmianę r
+d_t <- 1 / 12
+sigma <- 0.3
+u <- exp(sigma * sqrt(d_t))
+d <- exp(-sigma * sqrt(d_t))
+S_0 <- 50
+r <- 0.02
+K <- 48
+T <- 2
+
+
+european_option_r<-Vectorize(european_option,"r")
+american_option_r<-Vectorize(american_option,"r")
+
+r<-0.01
+
+ceny_pe<-c()
+ceny_ce<-c()
+ceny_pa<-c()
+ceny_ca<-c()
+
+
+for (i in 1:length(r)){
+  ceny_pe[i]<-european_option_r(S_0, u, d, r, K, d_t, T, type = 'put')[25,i]
+  ceny_ce[i]<-european_option_r(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
+  ceny_pa[i]<-american_option_r(S_0, u, d, r, K, d_t, T, type = 'put')[25,i]
+  ceny_ca[i]<-american_option_r(S_0, u, d, r, K, d_t, T, type = 'call')[25,i]
+}
+
+
+ceny_pe
+ceny_ce
+ceny_pa
+ceny_ca
+
 # Zadanie 5
 
 # Wrażliwość na d_t
@@ -301,66 +411,18 @@ r <- 0.02
 K <- 48
 T <- 2
 
-#gdzieś wcześniej są modyfikacje do funkcji, więc wczyrujemy jeszcze raz "czystą" funkcję 
-european_option <- function(S_0, u, d, r, K, d_t, T, type){
-  
-  N <- T / d_t+1    # liczba kroków w drzewie, rozmiar macierzy
-  S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
-  B <- matrix(0, N, N)    # macierz payoff
-  B[is.na(S_T)] <- NA
-  if(type == 'put')
-    B[, N] <- pmax(K - S_T[, N], 0)
-  else
-    B[, N] <- pmax(S_T[, N] - K, 0)
-  
-  for (i in (N - 1):1){
-    for (j in (N - i + 1):N){
-      B[j, i] <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
-    }
-  }
-  
-  return(B)
-} 
-american_option <- function(S_0, u, d, r, K, d_t, T, type){
-  
-  N <- T / d_t+1   # liczba kroków w drzewie, rozmiar macierzy
-  S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
-  B <- matrix(0, N, N)    # macierz payoff
-  B[is.na(S_T)] <- NA
-  if(type == 'put'){
-    B[, N] <- pmax(K - S_T[, N], 0)
-    
-    for (i in (N - 1):1){
-      for (j in (N - i + 1):N){
-        a <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
-        b <- max(K - S_T[j, i], 0)
-        B[j, i] <- max(a, b)
-      }
-    }
-  }
-  else{
-    B[, N] <- pmax(S_T[, N] - K, 0)
-    
-    for (i in (N - 1):1){
-      for (j in (N - i + 1):N){
-        a <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
-        b <- max(S_T[j, i] - K, 0)
-        B[j, i] <- max(a, b)
-      }
-    }
-  }
-  return(B)
-}
 
-european_option_dt<-Vectorize(european_option,  "d_t")
-american_option_dt<-Vectorize(american_option, "d_t")
+european_option_dt<-Vectorize(european_option,  c("u","d","d_t"))
+american_option_dt<-Vectorize(american_option, c("u","d","d_t"))
 
 a<-1:24
 T<-1
 d_t<-1/a
+u <- exp(sigma * sqrt(d_t))
+d <- exp(-sigma * sqrt(d_t))
+
 ceny_pe<-c()
 ceny_ce<-c()
-
 ceny_pa<-c()
 ceny_ca<-c()
 
