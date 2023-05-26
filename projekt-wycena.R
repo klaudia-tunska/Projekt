@@ -471,12 +471,12 @@ ceny_ce
 ceny_pa
 ceny_ca
 
-plot(d_t,ceny_pe,col="green",ylim=c(0,10), ylab = "Cena", xlab = "Krok", main="Zależność ceny opcji od liczby kroków")
+plot(d_t,ceny_pe,col="green",ylim=c(2,9), ylab = "Cena", xlab = "Krok", main="Zależność ceny opcji od liczby kroków")
 lines(d_t,ceny_ce, col="blue", type="p")
 lines(d_t,ceny_pa,col="red")
 lines(d_t,ceny_ca, col="magenta")
 legend("bottomright", c("Europejska put","Europejska call","Amerykańska put",
-                        "Amerykańska call"),pch=c("-","-","-","-"), col=c("green","blue","red","magenta"))
+                        "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","red","magenta"))
 
 
 # Zadanie 6
