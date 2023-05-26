@@ -205,7 +205,7 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type){
 european_option_K<-Vectorize(european_option,"K")
 american_option_K<-Vectorize(american_option, "K")
 
-K<-40:70
+K<-20:80
 ceny_pe<-c()
 ceny_ce<-c()
 ceny_pa<-c()
@@ -226,13 +226,13 @@ ceny_pa
 ceny_ca
 
 
-plot(K,ceny_pe,col="green", ylim=c(0,100) ,ylab = "Cena", xlab = "Krok",
+plot(K,ceny_pe,col="green", ylim=c(0,100) ,ylab = "Cena", xlab = "Cena spot",
      main="Zależność ceny opcji od ceny wykonania, K")
-lines(K,ceny_ce, col="blue", type="p")
+lines(K,ceny_ce, col="blue", pch=4, type = "p")
 lines(K,ceny_pa,col="black")
 lines(K,ceny_ca, col="red")
-legend("topleft", c("Europejska put","Europejska call","Amerykańska put",
-                    "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","black","red"))
+legend("topright", c("Europejska put","Europejska call","Amerykańska put",
+                    "Amerykańska call"),pch=c("o","x","-","-"), col=c("green","blue","black","red"))
 
 
 
