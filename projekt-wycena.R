@@ -246,7 +246,7 @@ european_option_T<-Vectorize(european_option,"T")
 american_option_T<-Vectorize(american_option, "T")
 
 
-T<-seq(0,40,by=1)
+T<-seq(1,20,by=2)
 ceny_pe<-c()
 ceny_ce<-c()
 ceny_pa<-c()
@@ -268,7 +268,7 @@ ceny_pa
 ceny_ca
 
 
-plot(T,ceny_pe,col="green",ylim=c(0,20), ylab = "Cena", xlab = "Zapadalnoś T", main="Zależność ceny opcji od zapadalności, T")
+plot(T,ceny_pe,col="green",ylim=c(0,30), ylab = "Cena", xlab = "Zapadalnoś T", main="Zależność ceny opcji od zapadalności, T")
 lines(T,ceny_ce, col="blue", type="p")
 lines(T,ceny_pa,col="black")
 lines(T,ceny_ca, col="red")
@@ -292,7 +292,7 @@ european_option_S0<-Vectorize(european_option,"S_0")
 american_option_S0<-Vectorize(american_option, "S_0")
 
 
-S_0<-40:60
+S_0<-seq(40,60,by=2)
 ceny_pe<-c()
 ceny_ce<-c()
 ceny_pa<-c()
@@ -361,7 +361,7 @@ ceny_ca
 
 
 plot(sigma,ceny_pe,col="green",ylim=c(0,50), ylab = "Cena",
-     xlab = "Wartość sigmy", main="Zależność od sigmy")
+     xlab = "Wartość sigmy", main="Zależność ceny od sigmy")
 lines(sigma,ceny_ce, col="blue", type="p")
 lines(sigma,ceny_pa,col="black")
 lines(sigma,ceny_ca, col="red")
@@ -431,7 +431,7 @@ european_option_dt<-Vectorize(european_option,  c("u","d","d_t"))
 american_option_dt<-Vectorize(american_option, c("u","d","d_t"))
 
 T<-1
-d_t<-seq(0.01,1, by=0.04)
+d_t<-seq(0.01,1, by=0.05)
 u <- exp(sigma * sqrt(d_t))
 d <- exp(-sigma * sqrt(d_t))
 
