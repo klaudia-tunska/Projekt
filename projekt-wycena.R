@@ -336,7 +336,7 @@ T <- 2
 european_option_sigma<-Vectorize(european_option,c("u","d"))
 american_option_sigma<-Vectorize(american_option,c("u","d"))
 
-sigma<-seq(0.05,0.5,by=0.05)
+sigma<-seq(0.1,5,by=0.5)
 u <- exp(sigma * sqrt(d_t))
 d <- exp(-sigma * sqrt(d_t))
 
@@ -360,12 +360,12 @@ ceny_pa
 ceny_ca
 
 
-plot(sigma,ceny_pe,col="green",ylim=c(0,20), ylab = "Wartość",
+plot(sigma,ceny_pe,col="green",ylim=c(0,50), ylab = "Cena",
      xlab = "Wartość sigmy", main="Zależność od sigmy")
 lines(sigma,ceny_ce, col="blue", type="p")
 lines(sigma,ceny_pa,col="black")
 lines(sigma,ceny_ca, col="red")
-legend("topleft", c("Europejska put","Europejska call","Amerykańska put",
+legend("bottomright", c("Europejska put","Europejska call","Amerykańska put",
                     "Amerykańska call"),pch=c("o","o","-","-"), col=c("green","blue","black","red"))
 
 
