@@ -241,7 +241,7 @@ european_option_T<-Vectorize(european_option,"T")
 american_option_T<-Vectorize(american_option, "T")
 
 
-T<-seq(1,20,by=2)
+T<-seq(1,40,by=2)
 ceny_pe<-c()
 ceny_ce<-c()
 ceny_pa<-c()
@@ -263,7 +263,7 @@ ceny_pa
 ceny_ca
 
 
-plot(T,ceny_pe,col="green",ylim=c(0,30), ylab = "Cena", xlab = "Zapadalnoś T", main="Zależność ceny opcji od zapadalności, T")
+plot(T,ceny_pe,col="green",ylim=c(0,30), ylab = "Cena", xlab = "Zapadalność T", main="Zależność ceny opcji od zapadalności, T")
 lines(T,ceny_ce, col="blue", type="p")
 lines(T,ceny_pa,col="black")
 lines(T,ceny_ca, col="red")

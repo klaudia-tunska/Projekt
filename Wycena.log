@@ -1,0 +1,190 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2020.12.15)  27 MAY 2023 19:17
+entering extended mode
+**./Wycena.tex
+(Wycena.tex
+LaTeX2e <2020-10-01> patch level 2
+L3 programming layer <2020-12-07> xparse <2020-03-03>
+(C:\Users\klaud\AppData\Local\Programs\MiKTeX\tex/latex/mwcls\mwrep.cls
+Document Class: mwrep 2017/05/13 v0.75 A LaTeX document class (MW)
+*** Beta version. Formatting may change
+*** in future versions of this class.
+(C:\Users\klaud\AppData\Local\Programs\MiKTeX\tex/latex/mwcls\mw12.clo
+File: mw12.clo 2017/05/13 v0.75 A document class size option (MW)
+)
+\@parindent=\dimen138
+\c@part=\count177
+\c@chapter=\count178
+\c@section=\count179
+\c@subsection=\count180
+\c@subsubsection=\count181
+\c@paragraph=\count182
+\c@subparagraph=\count183
+\c@figure=\count184
+\c@table=\count185
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen139
+)
+(C:\Users\klaud\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+Package: inputenc 2020/08/01 v1.3d Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+)
+(C:\Users\klaud\AppData\Local\Programs\MiKTeX\tex/latex/polski\polski.sty
+Package: polski 2017/05/04 v1.3.4 Polish language package
+
+   Inputenc package detected. Catcodes not changed.
+   Switching to Polish text encoding and Polish maths fonts.
+(C:\Users\klaud\AppData\Local\Programs\MiKTeX\tex/latex/base\ot4enc.def
+File: ot4enc.def 2020/08/10 v2.0s Standard LaTeX file
+Now handling font encoding OT4 ...
+... no UTF-8 mapping file for font encoding OT4
+)
+LaTeX Font Info:    Trying to load font information for OT4+cmr on input line 3
+60.
+
+(C:\Users\klaud\AppData\Local\Programs\MiKTeX\tex/latex/polski\ot4cmr.fd
+File: ot4cmr.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT4/cmr/bx/n on input line 360.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT4/cmss/m/n on input line 360.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT4/cmr/m/it on input line 360.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT4/cmtt/m/n on input line 360.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT4/cmss/bx/n on input line 360.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT4/cmr/bx/it on input line 360.
+LaTeX Font Info:    Encoding `OT1' has changed to `OT4' for symbol font
+(Font)              `operators' in the math version `normal' on input line 360.
+
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT4/cmr/m/n on input line 360.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/plm/m/it on input line 360.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/plsy/m/n on input line 360.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/plex/m/n on input line 360.
+LaTeX Font Info:    Encoding `OT1' has changed to `OT4' for symbol font
+(Font)              `operators' in the math version `bold' on input line 360.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT4/cmr/bx/n on input line 360.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/plm/b/it on input line 360.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/plsy/b/n on input line 360.
+)
+(C:\Users\klaud\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
+\l__kernel_color_stack_int=\count186
+\l__pdf_internal_box=\box47
+) (Wycena.aux)
+\openout1 = `Wycena.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Trying to load font information for OML+plm on input line 9
+.
+
+(C:\Users\klaud\AppData\Local\Programs\MiKTeX\tex/latex/polski\omlplm.fd
+File: omlplm.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+LaTeX Font Info:    Trying to load font information for OMS+plsy on input line 
+9.
+
+(C:\Users\klaud\AppData\Local\Programs\MiKTeX\tex/latex/polski\omsplsy.fd
+File: omsplsy.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+LaTeX Font Info:    Trying to load font information for OMX+plex on input line 
+9.
+
+(C:\Users\klaud\AppData\Local\Programs\MiKTeX\tex/latex/polski\omxplex.fd
+File: omxplex.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <12> on input line 9.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <8> on input line 9.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <6> on input line 9.
+
+[1
+
+{C:/Users/klaud/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] (Wycena.toc
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <10.95> on input line 1.
+)
+\tf@toc=\write3
+\openout3 = `Wycena.toc'.
+
+
+[1
+
+]
+Rozdzia\PlPrIeC {\l } 1.
+[2
+
+]
+Rozdzia\PlPrIeC {\l } 2.
+[3
+
+]
+Rozdzia\PlPrIeC {\l } 3.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <14.4> on input line 31.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <10> on input line 31.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <7> on input line 31.
+[4
+
+]
+Rozdzia\PlPrIeC {\l } 4.
+[5
+
+] (Wycena.aux) ) 
+Here is how much of TeX's memory you used:
+ 857 strings out of 479697
+ 14077 string characters out of 2867132
+ 278860 words of memory out of 3000000
+ 17986 multiletter control sequences out of 15000+200000
+ 415666 words of font info for 58 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 43i,7n,49p,179b,260s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/p
+l/plrm.enc}{C:/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plm
+s.enc}{C:/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plmi.enc
+}<C:/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plbx10.pfb
+><C:/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plbx12.pfb
+><C:/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plmi12.pfb
+><C:/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plmi8.pfb>
+<C:/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr10.pfb><
+C:/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr12.pfb><C
+:/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr17.pfb><C:
+/Users/klaud/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr8.pfb><C:/U
+sers/klaud/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plsy8.pfb>
+Output written on Wycena.pdf (6 pages, 62203 bytes).
+PDF statistics:
+ 60 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
