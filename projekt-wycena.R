@@ -128,11 +128,6 @@ execution_time_call <- execution_time_call[, 2:1]
 execution_time_call
 
 
-moments<-american_option(S_0, u, d, r, K, d_t, T, type = 'put') == K - S_T
-moments[moments==TRUE]<-1
-moments[moments==FALSE]<-0
-heatmap(moments,Rowv = NA,Colv = NA) #fajnie byłoby jednym kolorem pozaznaczać te miejsca i jakoś obrócić ta mape??
-View(moments)
 
 # Zadanie 4
 
@@ -219,7 +214,7 @@ ceny_pa
 ceny_ca
 
 
-plot(K,ceny_pe,col="green", ylim=c(0,50) ,ylab = "Cena", xlab = "Cena spot",
+plot(K,ceny_pe,col="green", ylim=c(0,50) ,ylab = "Cena opcji", xlab = "Cena wykonania",
      main="Zależność ceny opcji od ceny wykonania, K")
 lines(K,ceny_ce, col="blue", pch=4, type = "p")
 lines(K,ceny_pa,col="black")
@@ -533,3 +528,10 @@ plot(x,delta_ca,col=11,pch=19, main = "Wartości delty dla amerykańskiej opcji 
      ylab = "Wartość delty", xlab = "Krok")
 plot(x,alfa_ca,col=12,pch=19, main = "Wartości alfy dla amerykańskiej opcji call",
      ylab = "Wartość alfy", xlab = "Krok")
+
+
+moments<-american_option(S_0, u, d, r, K, d_t, T, type = 'put') == K - S_T
+moments[moments==TRUE]<-1
+moments[moments==FALSE]<-0
+heatmap(moments,Rowv = NA,Colv = NA) #fajnie byłoby jednym kolorem pozaznaczać te miejsca i jakoś obrócić ta mape??
+View(moments)
