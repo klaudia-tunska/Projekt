@@ -42,8 +42,7 @@ legend("topleft", legend = c("S_T > K", "S_T < K"), col = c("#DEA435", "#40DE8E"
 wycena <- function(u, d, r, d_t, V_u, V_d){
   p <- (exp(r * d_t) - d) / (u - d)
   return(exp(-r * d_t) * (p * V_u + (1 - p) * V_d))
-}
-
+  }
 wycena<-Vectorize(wycena, c("V_u","V_d"))
 
 european_option <- function(S_0, u, d, r, K, d_t, T, type = "put"){
@@ -63,21 +62,16 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = "put"){
   return(B)
 }
 
-
-EU_put <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'put')[T/d_t+1, 1], 2)    # zadanie 1
-EU_call <- round(european_option(S_0, u, d, r, K, d_t, T, type = 'call')[T/d_t+1, 1], 2)
-
 #View(european_option(S_0, u, d, r, K, d_t, T, type = 'put'))
 
-american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
+american_option <- function(S_0, u, d, r, K, d_t, T, type = "put"){
   
-  N <- T / d_t+1   # liczba kroków w drzewie, rozmiar macierzy
-  S_T <- binomial_tree(S_0, u, d_t, T)    # macierz w momencie S_t
-  B <- matrix(0, N, N)    # macierz payoff
+  N <- matrix_size(d_t, T)    # liczba kroków w drzewie, rozmiar macierzy
+  S_T <- binomial_tree(S_0, u, d_t, T)
+  B <- matrix(0, nrow = N, ncol = N)    # macierz payoff
   B[is.na(S_T)] <- NA
-  if(type == 'put'){
+  if(type == "put"){
     B[, N] <- pmax(K - S_T[, N], 0)
-    
     for (i in (N - 1):1){
       for (j in (N - i + 1):N){
         a <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
@@ -88,7 +82,6 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
   }
   else{
     B[, N] <- pmax(S_T[, N] - K, 0)
-  
     for (i in (N - 1):1){
       for (j in (N - i + 1):N){
         a <- wycena(u, d, r, d_t, B[j - 1, i + 1], B[j, i + 1])
@@ -97,8 +90,9 @@ american_option <- function(S_0, u, d, r, K, d_t, T, type = 'put'){
       }
     }
   }
-    return(B)
-  }
+  return(B)
+}
+
 
 
 AM_put <- round(american_option(S_0, u, d, r, K, d_t, T, type = 'put')[T/d_t+1, 1], 2)    # zadanie 2
