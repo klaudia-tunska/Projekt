@@ -497,9 +497,22 @@ portfel_pa<-portfel(pa, S_T)
 portfel_ca<-portfel(ca, S_T)
 
 delta_pe<-portfel_pe[[1]][1:25,]
-delta_ce<-portfel_ce[[1]][1:25,]
+
+colpe<-rep(1,length=625*25)
+colpe[which(delta_pe>-0.8)]<-18
+colpe[which(delta_pe>-0.4)]<-17
+colpe[which(delta_pe>-0.2)]<-16
+colpe[which(delta_pe< -0.7)]<-15
+
 delta_pa<-portfel_pa[[1]][1:25,]
+
 delta_ca<-portfel_ca[[1]][1:25,]
+
+colc<-rep(1,length=625*25)
+colc[which(delta_ca<0.4)]<-18
+colc[which(delta_ca>0.3)]<-17
+colc[which(delta_ca>0.5)]<-16
+colc[which(delta_ca>0.8)]<-15
 
 alfa_pe<-portfel_pe[[2]][1:25,]
 alfa_ce<-portfel_ce[[2]][1:25,]
@@ -509,32 +522,22 @@ alfa_ca<-portfel_ca[[2]][1:25,]
 x<-seq(1,25,length=625)
 
 par(mfrow = c(1, 2))    
-plot(x,delta_pe, col=11,pch=19, main = "Wartości delty dla europejskiej opcji put",
+plot(x,delta_pe, col=colpe,pch=19, main = "Wartości delty dla europejskiej opcji put",
      ylab = "Wartość delty", xlab = "Krok")
-plot(x,alfa_pe,col=12,pch=19, main = "Wartości alfy dla europejskiej opcji put",
+plot(x,alfa_pe,col=colpe,pch=19, main = "Wartości alfy dla europejskiej opcji put",
      ylab = "Wartość alfy", xlab = "Krok")
 
-par(mfrow = c(1, 2))    
-plot(x,delta_ce,col=11,pch=19, main = "Wartości delty dla europejskiej opcji call",
-     ylab = "Wartość delty", xlab = "Krok")
-plot(x,alfa_ce,col=12,pch=19, main = "Wartości alfy dla europejskiej opcji call",
-     ylab = "Wartość alfy", xlab = "Krok")
 
 par(mfrow = c(1, 2))    
-plot(x,delta_pa,col=11,pch=19, main = "Wartości delty dla amerykańskiej opcji put",
+plot(x,delta_pa,col=colpe,pch=19, main = "Wartości delty dla amerykańskiej opcji put",
      ylab = "Wartość delty",  xlab = "Krok")
-plot(x,alfa_pa,col=12,pch=19, main = "Wartości alfy dla amerykańskiej opcji put",
+plot(x,alfa_pa,col=colpe,pch=19, main = "Wartości alfy dla amerykańskiej opcji put",
      ylab = "Wartość alfy", xlab = "Krok")
 
 par(mfrow = c(1, 2))    
-plot(x,delta_ca,col=11,pch=19, main = "Wartości delty dla amerykańskiej opcji call",
+plot(x,delta_ca,col=colc,pch=19, main = "Wartości delty dla opcji call",
      ylab = "Wartość delty", xlab = "Krok")
-plot(x,alfa_ca,col=12,pch=19, main = "Wartości alfy dla amerykańskiej opcji call",
+plot(x,alfa_ca,col=colc,pch=19, main = "Wartości alfy dla opcji call",
      ylab = "Wartość alfy", xlab = "Krok")
 
 
-moments<-american_option(S_0, u, d, r, K, d_t, T, type = 'put') == K - S_T
-moments[moments==TRUE]<-1
-moments[moments==FALSE]<-0
-heatmap(moments,Rowv = NA,Colv = NA) #fajnie byłoby jednym kolorem pozaznaczać te miejsca i jakoś obrócić ta mape??
-View(moments)
