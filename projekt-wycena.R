@@ -63,6 +63,9 @@ european_option <- function(S_0, u, d, r, K, d_t, T, type = "put"){
 }
 
 #View(european_option(S_0, u, d, r, K, d_t, T, type = 'put'))
+# W raporcie napisalismy, ze funkcja portfela oraz wyceny amerykanskiej wykonuje sie w czasie liniowym
+# w naszym przypadku nie jest to prawda, ale można to zmienić, aby była, 
+# jednak taka idea plynela z wykorzystania macierzy do implementacji, dlatego zostawilismy ten komentarz
 
 american_option <- function(S_0, u, d, r, K, d_t, T, type = "put"){
   
